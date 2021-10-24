@@ -3,9 +3,7 @@
 #reader(lib "htdp-intermediate-lambda-reader.ss" "lang")((modname final) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
 ;;
 ;; ***************************************************
-;; <Yu Li> <20871326>
-;; CS 115 Fall 2020
-;; Final Assessment
+;; <Yu Li> 
 ;; ***************************************************
 ;;
 
