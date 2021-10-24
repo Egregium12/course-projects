@@ -1,0 +1,316 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{physics}
+\usepackage[left=2.5cm,right=2.5cm,top=1.6cm,bottom=1.6cm]{geometry}
+\usepackage{cancel}
+\usepackage{mathtools}
+\usepackage{ulem}
+\usepackage{polynom}
+\usepackage{comment}
+\usepackage{url}
+\def\ZZ{{\mathbb Z}}
+\def\RR{{\mathbb R}}
+\def\CC{{\mathbb C}}
+\def\QQ{{\mathbb Q}}
+\def\EE{{\mathbb E}}
+\def\NN{{\mathbb N}}
+\def\FF{{\mathbb F}}
+\def\AA{{\mathcal A}}
+\def\SS{{\mathbb S}}
+\def\PP{{\mathbb P}}
+\def\HH{{\mathbb H}}
+\def\sp{{\operatorname{span}}}
+\def\nul{{\operatorname{nullity}}}
+\def\nu{{\operator{Null}}}
+\def\ran{{\operatorname{ran}}}
+\def\Int{{\operatorname{Int}}}
+\def\momt{{-i\hbar \frac{d}{dx}}}
+\def\hamt{{-\frac{\hbar^2}{2m} \frac{d^2}{dx^2}+V(x)}}
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\title{AMATH 271 Miniproject 1}
+\author{Yu Li}
+\begin{document}
+\maketitle
+\text{ }\\
+\begin{enumerate}
+  \item \textbf{Part 1}\\
+  Firstly, we need to decide the type of the drag (linear or quadratic or both) that dominates during the motion of the ball. The following data will be used for this purpose:\\
+  \\
+  Density of air under \(15 ^\circ C\) and \(1 atm\)\cite{airdensity}:
+  \begin{equation}
+  \rho =   1.23 kg m^{-3}
+  \end{equation}
+  Empirical constant for shpere:
+  \begin{equation}
+    \kappa  = 1
+  \end{equation}
+  Dynamic viscosity of air at \(15 ^\circ C\) and \(1 atm\)\cite{viscosity}:
+  \begin{equation}
+    \mu  = 1.80 \times 10^{-5} kg m^{-1}s^{-1}
+  \end{equation}
+  We use the expression mentioned in assignment 2 to calculate the ratio of the quadratic and linear drag terms.
+  Note that the diameter of the ball \(D= 10 cm = 0.10 m\) is given in the statement of the problem.
+  And we will use the initial speed \(v=30ms^{-1}\) in the calculation since this gives an estimation of the typical order of magnitude of the ball's speed during its motion. Substitute these data into the expression given in assignment 2, we have:\\
+  \begin{equation}
+    \frac{f_{quad}}{f_{lin}} = \frac{\kappa}{48}\frac{\rho D v}{\mu} = \frac{1}{48} \frac{(1.23 kg m^{-3})( 0.10 m)(30ms^{-1})}{1.80 \times 10^{-5} kg m^{-1}s^{-1}} = 4.27\times 10^3
+  \end{equation}
+  As we can see, the linear term is negligible compared to the quadratic term. So, during the following analysis, only the quadratic term will be considered. \\
+  \\
+  The drag coefficient for the quadratic drag is:
+  \begin{equation}
+    c = \kappa \frac{\pi}{16}\rho D^2 = 1\cdot \frac{\pi}{16} (1.23 kg m^{-3}) (0.10m)^2 =2.42\times 10^{-3} kg m^{-1}
+  \end{equation}
+  According to Taylor\cite{Taylor2005}, the Newton's Second Law equations for a projectile subject to quadratic drag is
+  (assuming horizontal \(x\)-axis and vertical \(y\)-axis):
+  \begin{equation}
+     m \dot{v}_x = -c\sqrt{v_{x}^2 +v_y^2} v_x
+  \end{equation}
+  \begin{equation}
+    m\dot{v}_y = -mg - c\sqrt{v_{x}^2 +v_y^2} v_y
+  \end{equation}
+  Note that \(v_x= \frac{\dd x}{\dd t}\), \(v_y = \frac{\dd y}{\dd t}\), so
+  \begin{equation}
+     m \frac{\dd^2x}{\dd t^2}  = -c \sqrt{\left(\frac{\dd x}{\dd t}\right)^2 + \left(\frac{\dd y}{\dd t}\right)^2 } \frac{\dd x}{\dd t}
+  \end{equation}
+  \begin{equation}
+    m \frac{\dd^2y}{\dd t^2} = -mg -c \sqrt{\left(\frac{\dd x}{\dd t}\right)^2 + \left(\frac{\dd y}{\dd t}\right)^2 } \frac{\dd y}{\dd t}
+  \end{equation}
+  This is a non-linear system of equations about \(x\), \(y\) and \(t\) whose solution can only be found numerically.\\
+  \\
+  Let the position where the ball is launched be the origin of our coordinate system. Assume the ball flies to the right.
+  Let the \(x\)-axis be horizontally to the right and the \(y\)-axis be vertically upward. So, at \(t=0\), we have the following
+  initial conditions:
+  \begin{equation}
+    x(0)=y(0)=0
+  \end{equation}
+  \begin{equation}
+    v_x(0) = \frac{\dd x}{\dd t}(0) = v \cos\theta = (30ms^{-1})\cos\frac{\pi}{4} = 21.2 ms^{-1}
+  \end{equation}
+  \begin{equation}
+    v_y(0) = \frac{\dd y}{\dd t}(0)= v \sin\theta = (30ms^{-1})\sin\frac{\pi}{4} = 21.2 ms^{-1}
+  \end{equation}
+  Now, we enter the equations and initial conditions into Maple to find the numerical solution. See the Maple worksheet I uploaded
+  for the commands. \\
+  \\
+  The numerical solution yields the following plot:
+  \begin{figure}[ht]
+      \centering
+      \includegraphics[scale=0.6]{p1.PNG}
+      \caption{The plot for the trajectory of the ball for 4 s after launch. The trajectory when there is no drag is also included for comparison. }
+      \label{fig:label}
+  \end{figure}\\
+  Compared to the trajectory when there is no drag, the trajectory with quadratic drag is a decaying parabola-like curve, with significantly lower maximum height and shorter range. To analyze the key features of the trajectory with quadratic drag,
+  I have used Maple to approximate the maximum height, the time for the ball to return to its initial height and the range. See my Maple worksheet for the commands that produce these values.\\
+  \\
+  The maximum height of the ball during its motion is:
+  \begin{equation}
+    y_{max} = 16.3 m
+  \end{equation}
+  The time for the ball to return to its initial height is:
+  \begin{equation}
+    t_r = 3.63 s
+  \end{equation}
+  The range:
+  \begin{equation}
+    x_r = 51.9 m
+  \end{equation}
+  In vacuum, since there is no drag, the time for the ball to reach the maximum height is:
+  \begin{equation}
+    t = \frac{v_y(0)}{g}
+  \end{equation}
+  Substitute this into the equation of motion \(y = v_y(0)t -\frac{1}{2}gt^2\) for the ball in vacuum, we have:
+  \begin{equation}
+    y_{max\text{ }vacuum} = \frac{v_y^2(0)}{g} - \frac{1}{2}g\cdot  \frac{v_y^2(0)}{g^2} =\frac{v_y^2(0)}{2g} = \frac{(21.2ms^{-1})^2}{2\cdot 9.81ms^{-2}} = 22.9 m
+  \end{equation}
+  According to equation (2.38) on Taylor\cite{Taylor2005}, the range of the ball in vacuum is:
+  \begin{equation}
+    x_{r\text{ }vacuum} = \frac{2v_{x}(0)v_y(0)}{g} = \frac{2\cdot (21.2ms^{-1})^2}{9.81ms^{-2}} = 91.7 m
+  \end{equation}
+  So, when the drag is quadratic, the maximum height of the ball is only \(\frac{y_{max}}{y_{max\text{ }vacuum}}=\frac{16.3m}{22.9m}= 71.2\%\) of that in vacuum. The range of the ball is only \(\frac{x_r}{x_{r\text{ }vacuum}} = \frac{51.9m}{91.7m}=56.6\%\) of that in vacuum. This shows there is a significant discrepancy between the trajectory with quadratic drag and that of no drag. So, it is not reasonable to neglect the drag, as the key features of the trajectory will be lost if the drag is neglected.
+  \pagebreak \\ \\
+  \item \textbf{Part 2}\\
+  When the motion is purely vertical, according to equation 2.89 on Taylor\cite{Taylor2005}, the maximum height is:
+  \begin{equation}
+    y_{max\text{ }1-D} = \frac{v_{ter}^2}{2g} \ln \left(\frac{v_{ter}^2 + v_y^2(0)}{v_{ter}^2}\right)
+  \end{equation}
+  where
+  \begin{equation}
+    v_{ter} = \sqrt{\frac{mg}{c}} =\sqrt{\frac{(0.200kg)(9.81ms^{-2})}{2.42\times 10^{-3}kgm^{-1}}} = 28.5ms^{-1}
+  \end{equation}
+  Therefore:
+  \begin{equation}
+    y_{max\text{ }1-D} =\frac{( 28.5ms^{-2})^2}{2\cdot 9.81ms^{-2}} \ln \left(\frac{(28.5ms^{-1})^2 + (21.2ms^{-1})^2}{(28.5ms^{-1})^2}\right) = 18.2 m
+  \end{equation}
+  We see that the maximum height for 2-D motion calculated in Part 1, \(y_{max} = 16.3m\), is less than this value.
+  This is probably because the magnitude of the drag force for the 2-D case is always greater than that of the 1-D case
+  during the upward motion.
+  We plot the magnitude of the drag force versus time for both cases to verify that. \\
+  \\
+  Note that for the 2-D case, the \(y\)-component of the drag force is the only portion of the drag force that influences
+  the \(y\)-component of the motion. So, we only plot the magnitude of the \(y\)-component of the drag force for the 2-D case.
+  This is given by:
+  \begin{equation}
+    f_{y\text{ }2-D} = -c \sqrt{\left(\frac{\dd x}{\dd t}\right)^2 + \left(\frac{\dd y}{\dd t}\right)^2 } \frac{\dd y}{\dd t}
+  \end{equation}
+  The Newton's Second Law equation for the 1-D case is:
+  \begin{equation}
+    m \dot{v}_y = -mg -c|v_y| v_y
+  \end{equation}
+  Since \(v_y =\frac{\dd y}{\dd t}\), we have:
+  \begin{equation}
+    m \frac{\dd^2 y}{\dd t} = -mg -c\left|\frac{\dd y}{\dd t}\right| \frac{\dd y}{\dd t}
+  \end{equation}
+  We assume in the 1-D case, the ball is launched at \((0,0)\) at \(t=0\), with initial velocity \(v_y(0)=v \sin\theta = (30ms^{-1})\sin\frac{\pi}{4} = 21.2 ms^{-1}\). So, the initial conditions are:
+  \begin{equation}
+    y(0)=0
+  \end{equation}
+  \begin{equation}
+    \frac{\dd y}{\dd t}(0) = 21.2 ms^{-1}
+  \end{equation}
+  The \(1-D\) case can be solved analytically. But since we only care about comparing the magnitude of the drag forces for the two cases, it is not necessary to work out the analytic solution. Instead, we will solve the 1-D problem numerically by using Maple.
+  In the 1-D case, the drag force is given by:
+  \begin{equation}
+    f_{y\text{ }1-D} =  -c\left|\frac{\dd y}{\dd t}\right| \frac{\dd y}{\dd t}
+  \end{equation}
+  Now, we enter these into Maple to generate the magnitude of the drag forces versus time plot. See my Maple worksheet for the commands. The numerical solutions of the 1-D and 2-D problems yield the following plot:
+  \pagebreak \\ \\
+  \begin{figure}[ht]
+      \centering
+      \includegraphics[scale=0.6]{p2.PNG}
+      \caption{The plot of the magnitude of the drag forces versus time for both the 1-D and 2-D problems. }
+      \label{fig:label}
+  \end{figure}\\
+  Note that the plot is the magnitude of the drag forces, so we take the absolute value of \(f_{y\text{ }2-D}\) and
+  \(f_{y\text{ }1-D}\) for the plot. And since we only care about the upward part of the motion in order to explain
+  the relative magnitude of \(y_{max}\), we only plot the drag forces during the upward motion, i.e. only up to the time when
+  reaching the maximum height, so the drag force is zero (as \(v_y =0\)). We see that during the upward part of the motion, the magnitude of the drag force for the 2-D case is greater than that for the 1-D case most of the time. This implies the \(y_{max}\) of the 2-D case is less than that of the 1-D case, which agrees with the above calculations.\\
+  \\
+  \textbf{Discussion}: We can also explain the result \(y_{max}<y_{max\text{ }1-D}\) somewhat qualitatively.
+  The magnitude of the \(y\)-component of the drag force for the 2-D problem is \(c\sqrt{v_{x}^2 +v_y^2} v_y\).
+  Compare to that of the 1-D problem, \(c|v_y| v_y\), the factor \(\sqrt{v_{x}^2 +v_y^2}\) is greater than \(|v_y|\)
+  when \(v_y\) is the same. So, the magnitude of the vertical drag force of the 2-D problem should be somehow greater than that
+  of the 1-D problem. This is not a rigorous justification, however, as \(v_y\) is not always the same for these two problems.
+  \pagebreak \\ \\
+  \item \textbf{Part 3}\\
+  We utilize the numerical solutions we already have to plot \(\dot{x}(t)\) and \(\dot{y}(t)\) versus time.
+  See my Maple worksheet for the commands that produce the plots. \\
+  \\
+  Here are the plots:
+  \begin{figure}[ht]
+      \centering
+      \includegraphics[scale=0.6]{p3a.PNG}
+      \caption{The plot of \(\dot{x}(t)\). The horizontal straight line representing the terminal velocity is also plotted for comparison. }
+      \label{fig:label}
+  \end{figure}\\
+  As we can see, \(\dot{x}(t)\) approaches the terminal velocity \(v_x =0ms^{-1}\) as \(t\) increases. This is consistent with the fact that
+  the only force the ball experiences in the \(x\) direction is the drag force. This drag force will cause the ball to decelerate
+  in the \(x\)-direction. After the ball's velocity in the \(x\) direction reaches zero, the magnitude of the drag force will become zero (see equation (8)). This means there is virtually no force acting on the ball in the \(x\) direction, so \(\dot{x}(t)\)
+  will remain constant zero.
+  \pagebreak \\ \\
+  \begin{figure}[ht]
+      \centering
+      \includegraphics[scale=0.6]{p3b.PNG}
+      \caption{The plot of \(\dot{y}(t)\). The horizontal straight line representing the terminal velocity is also plotted for comparison. }
+      \label{fig:label}
+  \end{figure}\\
+  As we can see, \(\dot{y}(t)\) approaches the terminal velocity \(v_y =-28.5ms^{-1}\) as \(t\) increases.
+  This can be explained by the following: after a long time, the ball will move downwards. The ball experiences
+  the gravity, \(-mg\), and the drag \(- c\sqrt{v_{x}^2 +v_y^2} v_y\) in the vertical direction. Since \(v_x\to 0\) as time increases,
+  we have \(- c\sqrt{v_{x}^2 +v_y^2} v_y \to -c |v_y|v_y\). After a long time the drag will tend to balance with
+  the gravity to make the net vertical force be zero, so the ball moves with the constant terminal velocity.
+  The terminal speed can be calculated as following:
+  \begin{equation}
+    mg = c |v_y|^2
+  \end{equation}
+  \begin{equation}
+    |v_y| = \sqrt{\frac{mg}{c}}  =v_{ter} = 28.5ms^{-1}
+  \end{equation}
+  (using equation (20)). Indeed, as well can see on the plot, \(\dot{y}(t)\to -28.5ms^{-1}\) as time increases. \\
+  \\
+  The time when the vertical velocity reaches \(95\%\) of the terminal velocity can be found numerically by using Maple. See my Maple worksheet for the commands.\\
+  \\
+  The time when the vertical velocity reaches \(95\%\) of the terminal velocity is found to be:
+  \begin{equation}
+    t_{95} = 7.45s
+  \end{equation}
+  \pagebreak \\ \\
+  \item \textbf{Part 4}
+  \begin{enumerate}
+    \item When considering the influence of decreasing air density in the atmosphere, we need to replace \(c\)
+    with \(c\exp(-y/\gamma)\) in our equations. The new Newton's Second Law equations are:
+    \begin{equation}
+       m \frac{\dd^2x}{\dd t^2}  = -c\exp(-y/\gamma) \sqrt{\left(\frac{\dd x}{\dd t}\right)^2 + \left(\frac{\dd y}{\dd t}\right)^2 } \frac{\dd x}{\dd t}
+    \end{equation}
+    \begin{equation}
+      m \frac{\dd^2y}{\dd t^2} = -mg -c\exp(-y/\gamma) \sqrt{\left(\frac{\dd x}{\dd t}\right)^2 + \left(\frac{\dd y}{\dd t}\right)^2 } \frac{\dd y}{\dd t}
+    \end{equation}
+    This is, again, a non-linear system of equations about \(x\), \(y\) and \(t\) whose solution can only be found numerically.\\
+    \\
+    We will find the numerical solution by using Maple. Note that the initial conditions will be the same as Part (a)
+    (equation (10)-(12)). See my Maple worksheet for the commands. \\
+    \\
+    The numerical solution yields the following plot:
+    \begin{figure}[ht]
+        \centering
+        \includegraphics[scale=0.6]{p4a.PNG}
+        \caption{The trajectory of the ball with exponentially decaying drag coefficient. The trajectory with constant drag coefficient is also included for comparison. }
+        \label{fig:label}
+    \end{figure}\\
+    As we can see on the plot, there is no noticeable difference between the trajectory with the modified drag coefficient
+    and the original trajectory. This is probably because the order of magnitude of the ball's typical height (can be estimated by the maximum height \(y_{max}=16.3m\)) is negligible compared to the characteristic
+    height, \(\gamma = 10km = 10000m\), that would make a noticeable change on the drag coefficient.
+    So, assuming the drag coefficient is constant is a pretty valid assumption for this problem.
+    \pagebreak \\ \\
+    \item By experimenting on Maple (change the initial angle or/and speed in the initial conditions), I found the following
+    set of initial conditions that could make a noticeable difference between the trajectory with decaying drag coefficient and that of constant drag coefficient:
+    \begin{equation}
+      x(0) = y(0) = 0
+    \end{equation}
+    \begin{eqnarray}
+      v = 200ms^{-1} &\text{and} & \theta = \frac{3\pi}{8}
+    \end{eqnarray}
+    So
+    \begin{equation}
+      v_x(0)  = \frac{\dd x}{\dd t}(0) = v \cos\theta = 200ms^{-1}\cos\frac{3\pi}{8} = 76.5ms^{-1}
+    \end{equation}
+    \begin{equation}
+      v_y(0)  = \frac{\dd y}{\dd t}(0) = v \sin\theta = 200ms^{-1}\sin\frac{3\pi}{8} = 185ms^{-1}
+    \end{equation}
+    Then, we enter the equations (equation (8) and (9), equation (31) and (32)) and the above initial conditions into Maple
+    to find the numerical solutions. See my Maple worksheet for the commands. \\
+    \\
+    The numerical solutions yield the following plot:
+    \begin{figure}[ht]
+        \centering
+        \includegraphics[scale=0.55]{p4b.PNG}
+        \caption{The trajectory of the ball with exponentially decaying drag coefficient under the new initial conditions. The trajectory with constant drag coefficient is also included for comparison. }
+        \label{fig:label}
+    \end{figure}\\
+    As we can see on the plot, there is indeed a noticeable difference between the trajectory with the modified drag coefficient
+    and that of the original drag coefficient. This difference is very small, however, as the maximum height is about \(150m\), which is only \(1.5\%\)
+    of the characteristic height \(\gamma=10000m\). So, the varying in drag coefficient is still very small.
+    And as we can see on the plot, as time increases, the trajectory with decaying drag coefficient is above that of constant
+    drag coefficient. This is as expected, since the drag coefficient decreases as the height increases, so the ball
+    would experience less drag at certain height, which allows it to reach a higher altitude.
+    I should also mention that there is no way to significantly increase the difference shown in the plot by modifying the initial conditions. Simply modifying initial angle will result in approximately the same difference as shown in the plot (this has been observed when I modified the initial angle on Maple).
+    And since the initial speed is already close to the speed of sound (\(\approx 340ms^{-1}\)), increaing the initial speed would make the assumption of quadratic drag unrealistic.
+
+
+  \end{enumerate}
+\end{enumerate}
+
+\begin{thebibliography}{1}
+
+\bibitem{Taylor2005} Taylor, J. R. \textit{Classical Mechanics}. University Science Books, 2005.
+\bibitem{airdensity} Wikipedia. \textit{Density of air.} \url{https://en.wikipedia.org/wiki/Density_of_air}
+\bibitem{viscosity} Pennsylvania State University. \textit{Properties of Air Table.} \url{https://www.me.psu.edu/cimbala/me433/Links/Table_A_9_CC_Properties_of_Air.pdf}
+\end{thebibliography}
+
+
+\end{document}
