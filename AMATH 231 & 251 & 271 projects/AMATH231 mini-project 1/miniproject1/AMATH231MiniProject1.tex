@@ -1,0 +1,859 @@
+\documentclass{article}
+\usepackage[left=2cm,right=2.5cm,top=1.6cm,bottom=1.6cm]{geometry}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{bm}
+\usepackage{mathtools}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{physics}
+% define info for title page
+\title{AMATH 231 Miniproject 1}
+\author{Yu Li}
+\date{\today}
+
+
+\begin{document}
+
+% make the title page
+\maketitle
+
+
+
+% use enumerate to make a numbered list; in this case, a list of problem solutions
+
+\begin{enumerate}
+
+\item \textbf{Part 1}\\
+The two segments of the vortex (B) velocity \(\mathbf{u}(x,y)\), \((-\Omega y, \Omega x)\) and \((-\frac{by}{x^2+y^2}, \frac{bx}{x^2+y^2})\),
+are continuous in their respective domains, \(\sqrt{x^2+y^2}\le r_0\) and \(\sqrt{x^2+y^2}> r_0\).
+So, in order to let the entire function \(\mathbf{u}(x,y)\) be continuous, we only need to consider the points
+on the boundary that these two domains intersect. That is, the points on the circle \(x^2+y^2=r_0^2\).
+Let \((x_0,y_0)\) be any point that satisfies \(x_0^2+y_0^2 = r_0^2\).
+When \(\mathbf{u}(x,y)\) is continuous, we must have:
+\begin{equation}
+  \lim_{(x,y)\to (x_0,y_0)} \mathbf{u}(x,y) = \mathbf{u}(x_0,y_0)
+\end{equation}
+By the definition of the function \(\mathbf{u}(x,y)\), we know that:
+\begin{equation}
+  \mathbf{u}(x_0,y_0) = (-\Omega y_0, \Omega x_0)
+\end{equation}
+Therefore,
+\begin{equation}
+  \lim_{(x,y)\to (x_0,y_0)} \mathbf{u}(x,y) = (-\Omega y_0, \Omega x_0)
+\end{equation}
+For any set of points \((x,y)\) satisfying \(\sqrt{x^2+y^2}\le r_0\) such that \((x,y)\to (x_0,y_0)\), we have:
+\begin{equation}
+  \lim_{(x,y)\to (x_0,y_0)} \mathbf{u}(x,y) = \lim_{(x,y)\to (x_0,y_0)} (-\Omega y, \Omega x) = (-\Omega y_0, \Omega x_0)
+\end{equation}
+This does not provide us with any new information.\\
+\\
+For any set of points \((x,y)\) satisfying \(\sqrt{x^2+y^2}> r_0\) such that \((x,y)\to (x_0,y_0)\), we have:
+\begin{align*}
+  \lim_{(x,y)\to (x_0,y_0)} \mathbf{u}(x,y)
+  &= \lim_{(x,y)\to (x_0,y_0)} \left(-\frac{by}{x^2+y^2}, \frac{bx}{x^2+y^2}\right)\\
+  &= \left(-\frac{by_0}{x_0^2+y_0^2}, \frac{bx_0}{x_0^2+y_0^2}\right)\\
+  &= \left( -\frac{by_0}{r_0^2}, \frac{bx_0}{r_0^2}\right)
+\end{align*}
+The last step uses the relation \(x_0^2+y_0^2 = r_0^2\).
+Therefore,
+\begin{equation}
+  \left( -\frac{by_0}{r_0^2}, \frac{bx_0}{r_0^2}\right)  = (-\Omega y_0, \Omega x_0)
+\end{equation}
+Compare the coefficients, we have:
+\begin{equation}
+  \Omega = \frac{b}{r_0^2}
+\end{equation}
+This is the relation that must be satisfied by \(r_0, \Omega\) and \(b\) in order to let the vortex (B) velocity \(\mathbf{u}(x,y)\) be continuous.
+\pagebreak \\ \\
+\item \textbf{Part 2}
+\begin{enumerate}
+  \item \textbf{A. flow into a drain}\\
+  In order to sketch the field portrait of \(\mathbf{u}(x,y)\), we need to find the field lines and the orientation first.
+  Let \(\mathbf{g}(t) =(x(t), y(t))\) be a parametrization of a field line.
+  According to the lecture notes, \(\mathbf{g}(t)\) must satisfy
+  \begin{equation}
+    \mathbf{g}'(t) = \mathbf{u}(\mathbf{g}(t))
+  \end{equation}
+  That is
+  \begin{equation}
+    (x'(t), y'(t)) = \mathbf{u}(x(t), y(t))
+  \end{equation}
+  Substitute the expression of \(\mathbf{u}(x,y)\) into the above equation, we have:
+  \begin{equation}
+    (x', y') = -\left(\frac{ax}{x^2+y^2}, \frac{ay}{x^2+y^2}\right)
+  \end{equation}
+  This reduces to the following two differential equations:
+  \begin{equation}
+    \frac{\dd x}{\dd t} = - \frac{ax}{x^2+y^2}
+  \end{equation}
+  \begin{equation}
+    \frac{\dd y}{\dd t} = - \frac{ay}{x^2+y^2}
+  \end{equation}
+  Divide equation (11) by equation (10), we get:
+  \begin{equation}
+    \frac{\dd y}{\dd t} \frac{\dd t}{\dd x} = - \frac{ay}{x^2+y^2}/\left(- \frac{ax}{x^2+y^2}\right)
+  \end{equation}
+  \begin{equation}
+    \frac{\dd y}{\dd x} = \frac{y}{x}
+  \end{equation}
+  We remark that \(y=0\) is a solution to this differential equation when \(x\ne 0\). Indeed, when \(x\ne 0\), we have:
+  \begin{equation}
+    \frac{\dd 0}{\dd x} = 0 = \frac{0}{x}
+  \end{equation}
+  So, \(y=0\) (excluding the point \((0,0)\)) is one of the field lines. \\
+  \\
+  If we refer back to equation (10) and (11), we would see that the status of the variables \(x\) and \(y\)
+  are completely equivalent. That is, when exchanging all the \(x\) and \(y\) in these two equations, the equations will
+  not change. This symmetry suggests that the line \(x=0\) (excluding the point \((0,0)\)), is also a field line. \\
+  \\
+  When \(y\ne 0\) and \(x\ne 0\), we can solve equation (13) by separating the variables as following:
+  \begin{equation}
+    \frac{\dd y}{y} = \frac{\dd x}{x}
+  \end{equation}
+  \begin{equation}
+    \int \frac{\dd y}{y} = \int \frac{\dd x}{x}
+  \end{equation}
+  \begin{equation}
+    \ln|y| = \ln|x|+C
+  \end{equation}
+  (\(C\) is an arbitrary constant)
+  \begin{equation}
+    e^{\ln|y|} = e^{\ln|x|+C}
+  \end{equation}
+  \begin{equation}
+    |y| = e^C |x|
+  \end{equation}
+  \begin{equation}
+    y = \pm e^C x = Ax
+  \end{equation}
+  where \(A= \pm e^C\) is an arbitrary non-zero constant. So, the set of lines \(y=Ax\) with \(A\ne 0\) (excluding the point \((0,0)\))
+  are also field lines. \\
+  \\
+  Overall, we conclude that the field lines are all the straight lines passing through the origin (excluding the point \((0,0)\)).\\
+  \\
+  Finally, we remark that \(\mathbf{u}(x,y)\) is not well-defined at \((0,0)\). So, it is not meaningful
+  to talk about the field lines that passing through \((0,0)\). \\
+  \\
+  To find the orientation, observe that in equation (9),
+  \(x'(t)\) and \(y'(t)\) always have the opposite sign to \(x\) and \(y\) (since \(a>0\)). So,
+  the orientation is towards the origin. \\
+  \\
+  Now we have the field lines and the orientation. We include a field portrait of \(\mathbf{u}(x,y)\):
+  \begin{figure}[ht]
+      \centering
+      \includegraphics[scale=0.18]{q2a.PNG}
+      \caption{The field portrait of \(\mathbf{u}(x,y)\) for (A) flow into a drain:}
+      \label{fig:label}
+  \end{figure}\\
+  \pagebreak \\ \\
+\item\textbf{B. vortex}\\
+\textbf{Note}: According to the instructor, we can assign a specific sign to \(\Omega\). I will let \(\Omega\) be positive.
+From equation (6), we know that \(b\) and \(\Omega\) have the same sign. Therefore, \(b>0\) as well. \\
+\\
+In order to sketch the field portrait of \(\mathbf{u}(x,y)\), we need to find the field lines and the orientation first.
+Let \(\mathbf{g}(t) =(x(t), y(t))\) be a parametrization of a field line.
+According to the lecture notes, \(\mathbf{g}(t)\) must satisfy
+\begin{equation}
+  \mathbf{g}'(t) = \mathbf{u}(\mathbf{g}(t))
+\end{equation}
+That is
+\begin{equation}
+  (x'(t), y'(t)) = \mathbf{u}(x(t), y(t))
+\end{equation}
+We consider the two cases \(\sqrt{x^2+y^2} \le r_0\) and \(\sqrt{x^2+y^2}>r_0\) separately.
+\begin{enumerate}
+  \item \(\sqrt{x^2+y^2} \le r_0\). In such case, we have:
+  \begin{equation}
+    (x', y') = \mathbf{u}(x, y) = (-\Omega y, \Omega x)
+  \end{equation}
+  This reduces to the following differential equations:
+  \begin{equation}
+    \frac{\dd x}{\dd t} = -\Omega y
+  \end{equation}
+  \begin{equation}
+    \frac{\dd y}{\dd t} = \Omega x
+  \end{equation}
+  Divide equation (25) by equation (24), we have:
+  \begin{equation}
+    \frac{\dd y}{\dd t} \frac{\dd t}{\dd x} = \Omega x/(-\Omega y)
+  \end{equation}
+  \begin{equation}
+    \frac{\dd y}{\dd x} = -\frac{x}{y}
+  \end{equation}
+  We can solve this differential equation by separating the variables as following:
+  \begin{equation}
+    y \dd y = -x \dd x
+  \end{equation}
+  \begin{equation}
+    \int y \dd y = -\int x \dd x
+  \end{equation}
+  \begin{equation}
+    \frac{y^2}{2} = -\frac{x^2}{2} + C
+  \end{equation}
+  (\(C\) is an arbitrary constant)
+  \begin{equation}
+    x^2+y^2 =2C =C'
+  \end{equation}
+  where \(C'=2C\) is an arbitrary constant. So, when \(\sqrt{x^2+y^2} \le r_0\), the field lines are
+  \(x^2+y^2 =C'\). These are circles centered at the origin. \\
+  \\
+  To find the orientation, we note that by equation (23), \(x'(t)\) always have the opposite sign as \(y\)
+  and \(y'(t)\) always have the same sign as \(x\) (since \(\Omega >0\)). This implies the orientation is counterclockwise.\\
+  \\
+  \item \(\sqrt{x^2+y^2} > r_0\). In such case, we have:
+  \begin{equation}
+    (x', y') = \mathbf{u}(x, y) = \left(-\frac{by}{x^2+y^2}, \frac{bx}{x^2+y^2}\right)
+  \end{equation}
+  This reduces to the following differential equations:
+  \begin{equation}
+    \frac{\dd x}{\dd t} = -\frac{by}{x^2+y^2}
+  \end{equation}
+  \begin{equation}
+    \frac{\dd y}{\dd t} = \frac{bx}{x^2+y^2}
+  \end{equation}
+  Divide equation (34) by equation (33), we have:
+  \begin{equation}
+    \frac{\dd y}{\dd t} \frac{\dd t}{\dd x} = \left( \frac{bx}{x^2+y^2}\right)/ \left(-\frac{by}{x^2+y^2}\right)
+  \end{equation}
+  \begin{equation}
+    \frac{\dd y}{\dd x} = - \frac{x}{y}
+  \end{equation}
+  This is exactly the same as equation (27). So, by repeating the same procedure (equation (28) - (31)), we know the solution is:
+  \begin{equation}
+    x^2+y^2 =2C =C'
+  \end{equation}
+  where \(C'\) is an arbitrary constant. So, when \(\sqrt{x^2+y^2} > r_0\), the field lines are
+  \(x^2+y^2 =C'\). These are circles centered at the origin.\\
+  \\
+  To find the orientation, we note that by equation (32), \(x'(t)\) always have the opposite sign as \(y\)
+  and \(y'(t)\) always have the same sign as \(x\) (since \(b >0\)). This implies the orientation is counterclockwise.
+\end{enumerate}
+Now we have the field lines and the orientation. We include a field portrait of \(\mathbf{u}(x,y)\):
+\begin{figure}[ht]
+    \centering
+    \includegraphics[scale=0.18]{q2b.PNG}
+    \caption{The field portrait of \(\mathbf{u}(x,y)\) for (B) vortex}
+    \label{fig:label}
+\end{figure}\\
+\end{enumerate}\text{ }\\
+\pagebreak \\ \\
+\item \textbf{Part 3}\\
+\textbf{Note}: the distance from the origin is given by \(\sqrt{x^2+y^2}\).
+  \begin{enumerate}
+    \item \textbf{A. flow into a drain}\\
+    To calculate the speed of the fluid, we need to calculate the magnitude of \(\mathbf{u}\):
+    \begin{align*}
+      \|\mathbf{u}(x,y)\|
+      &= \sqrt{\left(-\frac{ax}{x^2+y^2}\right)^2 + \left(-\frac{ay}{x^2+y^2}\right)^2}\\
+      &= \sqrt{\frac{a^2x^2}{(x^2+y^2)^2} + \frac{a^2y^2}{(x^2+y^2)^2}}\\
+      &= \sqrt{\frac{a^2(x^2+y^2)}{(x^2+y^2)^2}} = \sqrt{\frac{a^2}{(x^2+y^2)}} = \frac{a}{\sqrt{x^2+y^2}}
+    \end{align*}
+    The last step uses the relation \(a>0\).
+    We see that the speed of the fluid is inversely proportional to the distance from the origin.\\
+    \item \textbf{B. vortex}
+    \begin{enumerate}
+      \item \(\sqrt{x^2+y^2} \le r_0\). In such case, we see that:
+      \begin{align*}
+        \|\mathbf{u}(x,y)\|
+        &= \sqrt{(-\Omega y)^2 + (\Omega x)^2}\\
+        &= \sqrt{\Omega^2 (x^2+y^2)}\\
+        &=\Omega \sqrt{x^2+y^2}
+      \end{align*}
+      The last step uses the relation \(\Omega>0\).
+      We see that when \(\sqrt{x^2+y^2} \le r_0\), the speed of the fluid is proportional to the distance from the origin.\\
+      \item \(\sqrt{x^2+y^2} > r_0\). In such case, we see that:
+      \begin{align*}
+        \|\mathbf{u}(x,y)\|
+        &= \sqrt{\left(-\frac{by}{x^2+y^2}\right)^2 + \left(\frac{bx}{x^2+y^2}\right)^2}\\
+        &= \sqrt{\frac{b^2y^2}{(x^2+y^2)^2} + \frac{b^2 x^2}{(x^2+y^2)^2}}\\
+        &= \sqrt{\frac{b^2(x^2+y^2)}{(x^2+y^2)^2}} = \sqrt{\frac{b^2}{(x^2+y^2)}} = \frac{b}{\sqrt{x^2+y^2}}
+      \end{align*}
+      The last step uses the relation \(b>0\).
+      We see that the speed of the fluid is inversely proportional to the distance from the origin.\\
+    \end{enumerate}
+  \end{enumerate}\text{ }\\
+\pagebreak \\ \\
+\item \textbf{Part 4}
+\begin{enumerate}
+  \item \(C_1\): a circle of radius \(R\). According to the instructor, we can assume the circle is centered at the origin.
+   We use the usual parametrization for the circle.
+  \begin{eqnarray}
+    \mathbf{g}(t) = (R\cos t, R\sin t) & \text{with} & 0\le t \le 2\pi
+  \end{eqnarray}
+  Then
+  \begin{equation}
+    \mathbf{g}'(t) = (-R\sin t, R\cos t)
+  \end{equation}
+  \begin{enumerate}
+    \item \textbf{A. flow into a drain}\\
+    Evaluating \(\mathbf{u}(x,y)\) on \(C_1\) gives:
+    \begin{align}
+      \mathbf{u}(\mathbf{g}(t))
+      &= -\left(\frac{a R\cos t}{R^2\cos^2 t + R^2\sin^2 t}, \frac{aR\sin t}{R^2\cos^2 t + R^2\sin^2 t}\right)
+      = -\left(\frac{a}{R}\cos t, \frac{a}{R}\sin t\right)
+    \end{align}
+    Therefore, the circulation is:
+    \begin{align*}
+      \int_{C_1} \mathbf{u}\cdot \dd \mathbf{x}
+      &= \int_{0}^{2\pi} \mathbf{u}(\mathbf{g}(t))\cdot \mathbf{g}'(t) \dd t\\
+      &= -\int_{0}^{2\pi} \left(\frac{a}{R}\cos t, \frac{a}{R}\sin t\right) \cdot (-R\sin t, R\cos t) \dd t \\
+      &= -a\int_{0}^{2\pi}(-\cos t\sin t + \sin t \cos t) \dd t\\
+      &= -a\int_{0}^{2\pi} 0 \dd t\\
+      &= 0
+    \end{align*}
+    We see that \(\mathbf{u}(\mathbf{g}(t))\cdot \mathbf{g}'(t) = 0\) on \(C_1\).\\
+    \\
+    \textbf{Evaluation}: This is as expected, since the \(\mathbf{u}(x,y)\) is radial in this case, which means \(\mathbf{u}(x,y)\)
+    is always perpendicular to circles centered at the origin. \\
+    \\
+    \item \textbf{B. vortex}\\
+    Since the expression of \(\mathbf{u}(x,y)\) for this scenario is different for \(\sqrt{x^2+y^2}\le r_0\) and \(\sqrt{x^2+y^2}> r_0\), we need to consider the following two cases:\\
+    \\
+    \textbf{Case 1}: \(R\le r_0\). In such case, all points on the curve \(C_1\) satisfies \(\sqrt{x^2+y^2}\le r_0\).
+    So, evaluating \(\mathbf{u}(x,y)\) on \(C_1\) gives:
+    \begin{equation}
+      \mathbf{u}(\mathbf{g}(t)) = (-\Omega R\sin t, \Omega R\cos t)
+    \end{equation}
+    Therefore, the circulation is:
+    \begin{align*}
+      \int_{C_1} \mathbf{u}\cdot \dd \mathbf{x}
+      &= \int_{0}^{2\pi} \mathbf{u}(\mathbf{g}(t))\cdot \mathbf{g}'(t) \dd t\\
+      &= \int_{0}^{2\pi} (-\Omega R\sin t, \Omega R\cos t) \cdot  (-R\sin t, R\cos t) \dd t\\
+      &= \Omega R^2 \int_{0}^{2\pi} (\sin^2 t + \cos^2 t) \dd t\\
+      &= \Omega R^2 \int_{0}^{2\pi} \dd t\\
+      &= 2\pi \Omega R^2
+    \end{align*}
+    We see that on \(C_1\), \(\mathbf{u}(\mathbf{g}(t))\cdot \mathbf{g}'(t) = \Omega R^2\), which is a constant.\\
+    \\
+    \textbf{Case 2}: \(R> r_0\). In such case, all points on the curve \(C_1\) satisfies \(\sqrt{x^2+y^2}> r_0\).
+    So, evaluating \(\mathbf{u}(x,y)\) on \(C_1\) gives:
+    \begin{equation}
+        \mathbf{u}(\mathbf{g}(t)) = \left(\frac{-bR\sin t}{R^2\cos^2 t + R^2\sin^2 t}, \frac{bR\cos t}{R^2\cos^2 t + R^2\sin^2 t} \right) = \left(-\frac{b\sin t}{R} , \frac{b\cos t}{R}\right)
+    \end{equation}
+    Therefore, the circulation is
+    \begin{align*}
+      \int_{C_1} \mathbf{u}\cdot \dd \mathbf{x}
+      &= \int_{0}^{2\pi} \mathbf{u}(\mathbf{g}(t))\cdot \mathbf{g}'(t) \dd t\\
+      &= \int_{0}^{2\pi} \left(-\frac{b\sin t}{R} , \frac{b\cos t}{R}\right) \cdot  (-R\sin t, R\cos t) \dd t\\
+      &= b \int_{0}^{2\pi} (\sin^2 t + \cos^2 t) \dd t\\
+      &= b \int_{0}^{2\pi} \dd t\\
+      &= 2\pi b
+    \end{align*}
+    We see that on \(C_1\), \(\mathbf{u}(\mathbf{g}(t))\cdot \mathbf{g}'(t) = b\), which is a constant.\\
+  \end{enumerate}
+  \textbf{Evaluation}: This result, again, is as expected, since in both case the \(\mathbf{u}(x,y)\) is circular with
+  the center at the origin. So, \(\mathbf{u}(x,y)\) should have constant component along any circle centered at the origin.
+  In case 1, we see that the circulation equals the \(2\pi \Omega R^2\), which equals the field strength on the circle
+  \(\Omega R\) (shown in Part 3) times the circumference of the circle \(2\pi R\). In case 2, the circulation is \(2\pi b\), which equals the
+  field strength on the circle \(\frac{b}{R}\) (shown in Part 3) times the circumference of the circle \(2\pi R\). And we remark that in case 2 the
+  circulation is independent of the radius of the circle because the field strength is inversely proportional to the distance from the origin.\\
+  \\
+  Notice that in case 1, if we take \(R=r_0\), we will get
+  \begin{equation}
+    \int_{C_1} \mathbf{u}\cdot \dd \mathbf{x} = 2\pi \Omega r_0^2 = 2\pi b
+  \end{equation}
+  (using equation (6))
+  which is equal to that of case 2. So, when the radius \(R\) is greater than \(r_0\), the circulation will remain the same as
+  that of \(r_0\).
+  \\
+  \item \(C_2\): an annular wedge with inner and outer radii \(R_1\) and \(R_2>R_1\) spanning angle \(\theta\).
+  \begin{figure}[ht]
+      \centering
+      \includegraphics[scale=0.18]{q4b.PNG}
+      \caption{The annular wedge.}
+      \label{fig:label}
+  \end{figure}\\
+  This is a piecewise \(C^1\) curve, as we can see on the diagram. It is given by the following 4 pieces:\\
+  \(l_1\) (using the parametrization of clockwisely oriented arc):
+  \begin{eqnarray}
+    \mathbf{g}_1(t) = (R_1 \cos(\theta_1 + \theta_2 -t ) , R_1\sin(\theta_1 + \theta_2 -t )) & \text{with} & \theta_1 \le t\le \theta_2
+  \end{eqnarray}
+  \(l_2\) (using the parametrization of a straight line segment with orientation away from the origin):
+  \begin{eqnarray}
+    \mathbf{g}_2(t) = (t \cos \theta_1, t\sin \theta_1) & \text{with} & R_1 \le t \le R_2
+  \end{eqnarray}
+  \(l_3\) (using the parametrization of counterclockwisely oriented arc):
+  \begin{eqnarray}
+    \mathbf{g}_3(t) = (R_2 \cos t , R_2\sin t) & \text{with} &  \theta_1 \le t\le \theta_2
+  \end{eqnarray}
+  \(l_4\) (using the parametrization of a straight line segment with orientation towards the origin):
+  \begin{eqnarray}
+    \mathbf{g}_4(t) = ((R_1+R_2-t)\cos\theta_2, (R_1+R_2 - t)\sin \theta_2) & \text{with} & R_1 \le t \le R_2
+  \end{eqnarray}
+  Note that \(\theta_2-\theta_1 = \theta\). \\
+  \\
+  Then, we have:
+  \begin{equation}
+    \mathbf{g}_1'(t) = (R_1\sin(\theta_1 + \theta_2 -t ), -R_1\cos(\theta_1 + \theta_2 -t ))
+  \end{equation}
+  \begin{equation}
+    \mathbf{g}_2'(t) = (\cos\theta_1, \sin\theta_1)
+  \end{equation}
+  \begin{equation}
+    \mathbf{g}_3'(t) = (-R_2 \sin t, R_2\cos t)
+  \end{equation}
+  \begin{equation}
+    \mathbf{g}_4'(t) = (-\cos \theta_2, -\sin\theta_2)
+  \end{equation}
+  \begin{enumerate}
+    \item \textbf{A. flow into a drain}\\
+    Evaluating \(\mathbf{u}(x,y)\) on \(l_1\), \(l_2\), \(l_3\) and \(l_4\) gives:
+    \begin{align*}
+      \mathbf{u}(\mathbf{g}_1(t))
+      &= -\left(\frac{aR_1 \cos(\theta_1 + \theta_2 -t )  }{R_1^2 \cos^2(\theta_1 + \theta_2 -t ) +R_1^2 \sin^2(\theta_1 + \theta_2 -t ) }, \frac{aR_1 \sin(\theta_1 + \theta_2 -t )  }{R_1^2 \cos^2(\theta_1 + \theta_2 -t ) +R_1^2 \sin^2(\theta_1 + \theta_2 -t ) }\right)\\
+      &= -\left(\frac{a \cos(\theta_1 + \theta_2 -t )}{R_1}, \frac{a \sin(\theta_1 + \theta_2 -t )}{R_1}\right)
+    \end{align*}
+    \begin{align*}
+      \mathbf{u}(\mathbf{g}_2(t)) = -\left(\frac{a t \cos \theta_1}{t^2 \cos^2 \theta_1 +t^2 \sin^2 \theta_1}, \frac{a t \sin \theta_1}{t^2 \cos^2 \theta_1 +t^2 \sin^2 \theta_1}\right) = -\left(\frac{a\cos\theta_1}{t}, \frac{a\sin\theta_1}{t}\right)
+    \end{align*}
+    \begin{align*}
+      \mathbf{u}(\mathbf{g}_3(t)) = - \left(\frac{aR_2\cos t}{R_2^2\cos^2 t+R_2^2\sin^2 t}, \frac{aR_2\sin t}{R_2^2\cos^2 t+R_2^2\sin^2 t}\right) = -\left(\frac{a\cos t}{R_2}, \frac{a\sin t}{R_2}\right)
+    \end{align*}
+    \begin{align*}
+      \mathbf{u}(\mathbf{g}_4(t))
+      &= - \left(\frac{a (R_1+R_2-t)\cos\theta_2}{(R_1+R_2-t)^2\cos^2\theta_2+(R_1+R_2-t)^2\sin^2\theta_2},
+      \frac{a (R_1+R_2-t)\sin\theta_2}{(R_1+R_2-t)^2\cos^2\theta_2+(R_1+R_2-t)^2\sin^2\theta_2} \right)\\
+      &= -\left(\frac{a\cos\theta_2}{(R_1+R_2-t) }, \frac{a\sin\theta_2}{(R_1+R_2-t) }\right)
+    \end{align*}
+    To find the circulation, we calculate the line integrals along \(l_1,l_2,l_3\) and \(l_4\) separately:
+      \begin{align*}
+      \int_{l_1} \mathbf{u}\cdot \dd\mathbf{x}
+      &= \int_{\theta_1}^{\theta_2} \mathbf{u}(\mathbf{g}_1(t))\cdot \mathbf{g}_1'(t) \dd t\\
+      &= -\int_{\theta_1}^{\theta_2}\left(\frac{a \cos(\theta_1 + \theta_2 -t )}{R_1}, \frac{a \sin(\theta_1 + \theta_2 -t )}{R_1}\right)\cdot (R_1\sin(\theta_1 + \theta_2 -t ), -R_1\cos(\theta_1 + \theta_2 -t )) \dd t\\
+      &= -a \int_{\theta_1}^{\theta_2} (\cos(\theta_1 + \theta_2 -t ) \sin(\theta_1 + \theta_2 -t )-\sin(\theta_1 + \theta_2 -t )\cos(\theta_1 + \theta_2 -t ))\dd t\\
+      &= -a\int_{\theta_1}^{\theta_2} 0 \dd t\\
+      &= 0
+      \end{align*}
+      We see that \(\mathbf{u}(\mathbf{g}_1(t))\cdot \mathbf{g}_1'(t) = 0\) on \(l_1\).\\
+    \begin{align*}
+      \int_{l_2} \mathbf{u}\cdot \dd\mathbf{x}
+      &= \int_{R_1}^{R_2} \mathbf{u}(\mathbf{g}_2(t))\cdot \mathbf{g}_2'(t) \dd t\\
+      &= -  \int_{R_1}^{R_2} \left(\frac{a\cos\theta_1}{t}, \frac{a\sin\theta_1}{t}\right) \cdot  (\cos\theta_1, \sin\theta_1) \dd t\\
+      &= - a\int_{R_1}^{R_2} \frac{\cos^2 \theta_1 + \sin^2\theta_1}{t} \dd t\\
+      &= - a\int_{R_1}^{R_2} \frac{1}{t} \dd t \\
+      &= -a \ln|t|\Big|_{R_1}^{R_2}\\
+      &= a\ln\frac{R_1}{R_2}
+    \end{align*}
+    We see that on \(l_2\), \(\mathbf{u}(\mathbf{g}_2(t))\cdot \mathbf{g}_2'(t) = -\frac{a}{t}\), which is proportional to \(\frac{1}{t}\).
+    \begin{align*}
+      \int_{l_3} \mathbf{u}\cdot \dd\mathbf{x}
+      &= \int_{\theta_1}^{\theta_2} \mathbf{u}(\mathbf{g}_3(t))\cdot \mathbf{g}_3'(t) \dd t\\
+      &= - \int_{\theta_1}^{\theta_2} \left(\frac{a\cos t}{R_2}, \frac{a\sin t}{R_2}\right) \cdot (-R_2 \sin t, R_2\cos t) \dd t\\
+      &= -a \int_{\theta_1}^{\theta_2} (-\cos t\sin t + \sin t \cos t) \dd t\\
+      &= -a\int_{\theta_1}^{\theta_2} 0 \dd t\\
+      &= 0
+    \end{align*}
+    We see that \(\mathbf{u}(\mathbf{g}_3(t))\cdot \mathbf{g}_3'(t) = 0\) on \(l_3\).\\
+    \begin{align*}
+      \int_{l_4} \mathbf{u}\cdot \dd\mathbf{x}
+      &= \int_{R_1}^{R_2} \mathbf{u}(\mathbf{g}_4(t))\cdot \mathbf{g}_4'(t) \dd t\\
+      &= - \int_{R_1}^{R_2}\left(\frac{a\cos\theta_2}{(R_1+R_2-t) }, \frac{a\sin\theta_2}{(R_1+R_2-t) }\right)\cdot (-\cos \theta_2, -\sin\theta_2) \dd t\\
+      &= a\int_{R_1}^{R_2} \frac{\cos^2\theta_2 +\sin^2\theta_2}{(R_1+R_2-t)}\dd t \\
+      &= a\int_{R_1}^{R_2} \frac{1}{(R_1+R_2-t)} \dd t \\
+      &= -a\ln|R_1+R_2-t| \Big|_{R_1}^{R_2}\\
+      &= -a\ln \frac{R_1}{R_2}
+    \end{align*}
+    We see that on \(l_4\), \(\mathbf{u}(\mathbf{g}_4(t))\cdot \mathbf{g}_4'(t) = \frac{a}{R_1+R_2-t}\), which is proportional to \(\frac{1}{R_1+R_2-t}\).\\
+    \\
+    Therefore, the circulation is:
+    \begin{align*}
+      \int_{C_2} \mathbf{u}\cdot \dd\mathbf{x}
+      &= \int_{l_1} \mathbf{u}\cdot \dd\mathbf{x} +\int_{l_2} \mathbf{u}\cdot \dd\mathbf{x} +\int_{l_3} \mathbf{u}\cdot \dd\mathbf{x}
+      +\int_{l_4} \mathbf{u}\cdot \dd\mathbf{x}\\
+      &= 0 + a\ln\frac{R_1}{R_2} +0 -a\ln \frac{R_1}{R_2} \\
+      &= 0
+    \end{align*}
+    \textbf{Evaluation}: This result is as expected. The \(\mathbf{u}(x,y)\) in this case is radial, which means the line integral along any arc centered at the origin should be zero, as the field is always perpendicular to the arc. And since the field strength only
+    depends on the distance from the origin, the line integral along \(l_2\) and \(l_4\) should have the same magnitude.
+    But since the orientation of \(l_2\) and \(l_4\) are opposite (radially away from the origin versus radially towards the origin), we know that the line integrals along these two lines will have
+    opposite signs. So, overall, the circulation should be zero. \\
+    \item \textbf{B. vortex}\\
+    Since the expression of \(\mathbf{u}(x,y)\) for this scenario is different for \(\sqrt{x^2+y^2}\le r_0\) and \(\sqrt{x^2+y^2}> r_0\), we need to consider the following three cases:\\
+    \\
+    \textbf{Case 1}: \(R_1 <R_2 \le r_0\). In such case, all points on \(C_2\) will satisfy \(\sqrt{x^2+y^2}\le r_0\).
+    So, evaluating \(\mathbf{u}(x,y)\) on \(l_1, l_2, l_3\) and \(l_4\) gives:
+    \begin{align}
+      \mathbf{u}(\mathbf{g}_1(t)) = (-\Omega R_1\sin(\theta_1 + \theta_2 -t ), \Omega R_1 \cos(\theta_1 + \theta_2 -t ))
+    \end{align}
+    \begin{align}
+      \mathbf{u}(\mathbf{g}_2(t)) = (-\Omega  t\sin \theta_1 , \Omega  t\cos \theta_1)
+    \end{align}
+    \begin{align}
+      \mathbf{u}(\mathbf{g}_3(t)) = (-\Omega R_2\sin t, \Omega R_2\cos t)
+    \end{align}
+    \begin{align}
+      \mathbf{u}(\mathbf{g}_4(t)) = (-\Omega (R_1+R_2 - t)\sin \theta_2, \Omega (R_1+R_2-t)\cos\theta_2)
+    \end{align}
+  \end{enumerate}
+  To find the circulation, we calculate the line integral along \(l_1,l_2,l_3\) and \(l_4\) separately:
+  \begin{align*}
+    \int_{l_1} \mathbf{u}\cdot \dd\mathbf{x}
+    &= \int_{\theta_1}^{\theta_2} \mathbf{u}(\mathbf{g}_1(t))\cdot \mathbf{g}_1'(t) \dd t\\
+    &= \int_{\theta_1}^{\theta_2} (-\Omega R_1\sin(\theta_1 + \theta_2 -t ), \Omega R_1 \cos(\theta_1 + \theta_2 -t )) \cdot
+    (R_1\sin(\theta_1 + \theta_2 -t ), -R_1\cos(\theta_1 + \theta_2 -t )) \dd t\\
+    &= \int_{\theta_1}^{\theta_2} (-\Omega R_1^2 \sin^2(\theta_1 + \theta_2 -t ) - \Omega R_1^2\cos^2(\theta_1 + \theta_2 -t )) \dd t\\
+    &= -\Omega R_1^2\int_{\theta_1}^{\theta_2} \dd t\\
+    &= -\Omega R_1^2 (\theta_2 -\theta_1)\\
+    &= -\Omega R_1^2\theta
+  \end{align*}
+  Here we have used the relation \(\theta_2-\theta_1=\theta\). We see that on \(l_1\), \(\mathbf{u}(\mathbf{g}_1(t))\cdot \mathbf{g}_1'(t) = -\Omega R_1^2\), which is a constant.
+  \begin{align*}
+    \int_{l_2} \mathbf{u}\cdot \dd\mathbf{x}
+    &= \int_{R_1}^{R_2} \mathbf{u}(\mathbf{g}_2(t))\cdot \mathbf{g}_2'(t) \dd t\\
+    &= \int_{R_1}^{R_2} (-\Omega  t\sin \theta_1 , \Omega  t\cos \theta_1)\cdot (\cos\theta_1, \sin\theta_1) \dd t\\
+    &= \int_{R_1}^{R_2} (-\Omega t \sin\theta_1\cos\theta_1 + \Omega  t \cos \theta_1\sin\theta_1)\dd t\\
+    &= \int_{R_1}^{R_2} 0 \dd t\\
+    &= 0
+  \end{align*}
+   We see that on \(l_2\), \(\mathbf{u}(\mathbf{g}_2(t))\cdot \mathbf{g}_2'(t) = 0\).
+   \begin{align*}
+     \int_{l_3} \mathbf{u}\cdot \dd\mathbf{x}
+     &= \int_{\theta_1}^{\theta_2} \mathbf{u}(\mathbf{g}_3(t))\cdot \mathbf{g}_3'(t) \dd t\\
+     &= \int_{\theta_1}^{\theta_2} (-\Omega R_2\sin t, \Omega R_2\cos t)\cdot (-R_2 \sin t, R_2\cos t) \dd t\\
+     &= \int_{\theta_1}^{\theta_2} (\Omega R_2^2 \sin^2 t + \Omega R_2^2 \cos^2 t) \dd t\\
+     &= \Omega R_2^2 \int_{\theta_1}^{\theta_2} \dd t \\
+     &= \Omega R_2^2 (\theta_2 -\theta_1)\\
+     &= \Omega R_2^2 \theta
+   \end{align*}
+   Here we have used the relation \(\theta_2-\theta_1=\theta\). We see that on \(l_3\), \(\mathbf{u}(\mathbf{g}_3(t))\cdot \mathbf{g}_3'(t) = \Omega R_2^2\), which is a constant.
+   \begin{align*}
+     \int_{l_4} \mathbf{u}\cdot \dd\mathbf{x}
+     &= \int_{R_1}^{R_2} \mathbf{u}(\mathbf{g}_4(t))\cdot \mathbf{g}_4'(t) \dd t\\
+     &= \int_{R_1}^{R_2}(-\Omega (R_1+R_2 - t)\sin \theta_2, \Omega (R_1+R_2-t)\cos\theta_2)\cdot (-\cos \theta_2, -\sin\theta_2)\dd t\\
+     &= \int_{R_1}^{R_2} (\Omega (R_1+R_2 - t)\sin \theta_2\cos \theta_2 - \Omega (R_1+R_2-t)\cos\theta_2 \sin\theta_2)\dd t\\
+     &= \int_{R_1}^{R_2} 0 \dd t\\
+     &= 0
+   \end{align*}
+   We see that on \(l_4\), \(\mathbf{u}(\mathbf{g}_4(t))\cdot \mathbf{g}_4'(t) = 0\).\\
+   \\
+   Therefore, the circulation is:
+   \begin{align*}
+     \int_{C_2} \mathbf{u}\cdot \dd\mathbf{x}
+     &= \int_{l_1} \mathbf{u}\cdot \dd\mathbf{x} +\int_{l_2} \mathbf{u}\cdot \dd\mathbf{x} +\int_{l_3} \mathbf{u}\cdot \dd\mathbf{x}
+     \int_{l_4} \mathbf{u}\cdot \dd\mathbf{x}\\
+     &= -\Omega R_1^2\theta + 0 + \Omega R_2^2 \theta + 0 \\
+     &= \Omega \theta (R_2^2 - R_1^2)
+   \end{align*}
+   \textbf{Evaluation}: This result is as expected. We have seen that in this case \(\mathbf{u}(x,y)\) is circular with the center at
+   the origin. So, along any radial line segment, the line integral should be zero, since the field is perpendicular to the line segment. Along any arc centered at the origin, the field strength should be constant along the arc. And we see that on \(l_1\)
+   the line integral is \(-\Omega R_1^2\theta\), whose magnitude is equal to the field strength \(\Omega R_1\) (shown in Part 3) times the arc length
+   \(R_1\theta\). The opposite sign comes from the clockwise orientation. On \(l_2\) the line integral is \(\Omega R_2^2\theta\),
+   which equals the field strength \(\Omega R_2\) (shown in Part 3) times the arc length \(R_2\theta\).
+   \\
+   \\
+   \textbf{Case 2}: \(r_0 <R_1<R_2\). In such case, all points on \(C_2\) will satisfy \(\sqrt{x^2+y^2} > r_0\).
+   So, evaluating \(\mathbf{u}(x,y)\) on \(l_1, l_2, l_3\) and \(l_4\) gives:\\
+   \begin{align*}
+     \mathbf{u}(\mathbf{g}_1(t))
+     &= \left(-\frac{bR_1 \sin(\theta_1 + \theta_2 -t )  }{R_1^2 \cos^2(\theta_1 + \theta_2 -t ) +R_1^2 \sin^2(\theta_1 + \theta_2 -t ) }, \frac{bR_1 \cos (\theta_1 + \theta_2 -t )  }{R_1^2 \cos^2(\theta_1 + \theta_2 -t ) +R_1^2 \sin^2(\theta_1 + \theta_2 -t ) }\right)\\
+     &= \left(-\frac{b \sin(\theta_1 + \theta_2 -t )}{R_1}, \frac{b \cos(\theta_1 + \theta_2 -t )}{R_1}\right)
+   \end{align*}
+   \begin{align*}
+     \mathbf{u}(\mathbf{g}_2(t)) = \left(-\frac{b t \sin \theta_1}{t^2 \cos^2 \theta_1 +t^2 \sin^2 \theta_1}, \frac{b t \cos \theta_1}{t^2 \cos^2 \theta_1 +t^2 \sin^2 \theta_1}\right) = \left(-\frac{b\sin\theta_1}{t}, \frac{b\cos\theta_1}{t}\right)
+   \end{align*}
+   \begin{align*}
+     \mathbf{u}(\mathbf{g}_3(t)) =  \left(-\frac{bR_2\sin t}{R_2^2\cos^2 t+R_2^2\sin^2 t}, \frac{bR_2\cos t}{R_2^2\cos^2 t+R_2^2\sin^2 t}\right) = \left(-\frac{b\sin t}{R_2}, \frac{b\cos t}{R_2}\right)
+   \end{align*}
+   \begin{align*}
+     \mathbf{u}(\mathbf{g}_4(t))
+     &=  \left(-\frac{b (R_1+R_2-t)\sin\theta_2}{(R_1+R_2-t)^2\cos^2\theta_2+(R_1+R_2-t)^2\sin^2\theta_2},
+     \frac{b (R_1+R_2-t)\cos\theta_2}{(R_1+R_2-t)^2\cos^2\theta_2+(R_1+R_2-t)^2\sin^2\theta_2} \right)\\
+     &= \left(-\frac{b\sin\theta_2}{(R_1+R_2-t) }, \frac{b\cos\theta_2}{(R_1+R_2-t) }\right)
+   \end{align*}
+    To find the circulation, we calculate the line integral along \(l_1,l_2,l_3\) and \(l_4\) separately:
+    \begin{align*}
+      \int_{l_1} \mathbf{u}\cdot \dd\mathbf{x}
+      &= \int_{\theta_1}^{\theta_2} \mathbf{u}(\mathbf{g}_1(t))\cdot \mathbf{g}_1'(t) \dd t\\
+      &= \int_{\theta_1}^{\theta_2} \left(-\frac{b \sin(\theta_1 + \theta_2 -t )}{R_1}, \frac{b \cos(\theta_1 + \theta_2 -t )}{R_1}\right)\cdot (R_1\sin(\theta_1 + \theta_2 -t ), -R_1\cos(\theta_1 + \theta_2 -t )) \dd t \\
+      &= \int_{\theta_1}^{\theta_2} (-b \sin^2(\theta_1 + \theta_2 -t ) - b\cos^2 (\theta_1 + \theta_2 -t )) \dd t\\
+      &= -b \int_{\theta_1}^{\theta_2}\dd t\\
+      &= -b(\theta_2-\theta_1) \\
+      &= -b\theta
+    \end{align*}
+    Here we have used the relation \(\theta_2-\theta_1=\theta\). We see that on \(l_1\), \(\mathbf{u}(\mathbf{g}_1(t))\cdot \mathbf{g}_1'(t) = -b\), which is a constant.
+    \begin{align*}
+      \int_{l_2} \mathbf{u}\cdot \dd\mathbf{x}
+      &= \int_{R_1}^{R_2} \mathbf{u}(\mathbf{g}_2(t))\cdot \mathbf{g}_2'(t) \dd t\\
+      &= \int_{R_1}^{R_2} \left(-\frac{b\sin\theta_1}{t}, \frac{b\cos\theta_1}{t}\right)\cdot (\cos\theta_1, \sin\theta_1) \dd t\\
+      &= \int_{R_1}^{R_2} \left( -\frac{b\sin\theta_1\cos\theta_1}{t} + \frac{b\cos\theta_1\sin\theta_1}{t}\right)\dd t\\
+      &= \int_{R_1}^{R_2} 0 \dd t\\
+      &= 0
+    \end{align*}
+     We see that on \(l_2\), \(\mathbf{u}(\mathbf{g}_2(t))\cdot \mathbf{g}_2'(t) = 0\).
+     \begin{align*}
+       \int_{l_3} \mathbf{u}\cdot \dd\mathbf{x}
+       &= \int_{\theta_1}^{\theta_2} \mathbf{u}(\mathbf{g}_3(t))\cdot \mathbf{g}_3'(t) \dd t\\
+       &= \int_{\theta_1}^{\theta_2} \left(-\frac{b\sin t}{R_2}, \frac{b\cos t}{R_2}\right) \cdot (-R_2 \sin t, R_2\cos t)\dd t\\
+       &= \int_{\theta_1}^{\theta_2} \left(b\sin^2 t + b\cos^2 t\right) \dd t\\
+       &= b\int_{\theta_1}^{\theta_2} \dd t\\
+       &= b(\theta_2-\theta_1)\\
+       &= b\theta
+     \end{align*}
+     Here we have used the relation \(\theta_2-\theta_1=\theta\). We see that on \(l_3\), \(\mathbf{u}(\mathbf{g}_3(t))\cdot \mathbf{g}_3'(t) = b\), which is a constant.
+     \begin{align*}
+       \int_{l_4} \mathbf{u}\cdot \dd\mathbf{x}
+       &= \int_{R_1}^{R_2} \mathbf{u}(\mathbf{g}_4(t))\cdot \mathbf{g}_4'(t) \dd t\\
+       &= \int_{R_1}^{R_2} \left(-\frac{b\sin\theta_2}{(R_1+R_2-t) }, \frac{b\cos\theta_2}{(R_1+R_2-t) }\right) \cdot
+       (-\cos \theta_2, -\sin\theta_2) \dd t\\
+       &= \int_{R_1}^{R_2}\left(\frac{b\sin\theta_2\cos \theta_2}{(R_1+R_2-t)} -\frac{b\cos\theta_2\sin\theta_2}{(R_1+R_2-t) }\right)
+       \dd t\\
+       &= \int_{R_1}^{R_2} 0 \dd t \\
+       &= 0
+     \end{align*}
+      We see that on \(l_4\), \(\mathbf{u}(\mathbf{g}_4(t))\cdot \mathbf{g}_4'(t) = 0\).\\
+      \\
+      Therefore, the circulation is:
+      \begin{align*}
+        \int_{C_2} \mathbf{u}\cdot \dd\mathbf{x}
+        &= \int_{l_1} \mathbf{u}\cdot \dd\mathbf{x} +\int_{l_2} \mathbf{u}\cdot \dd\mathbf{x} +\int_{l_3} \mathbf{u}\cdot \dd\mathbf{x}
+        \int_{l_4} \mathbf{u}\cdot \dd\mathbf{x}\\
+        &= -b\theta + 0 + b \theta + 0 \\
+        &= 0
+      \end{align*}
+      \textbf{Evaluation}. This result is as expected. Again, in this case, the field is circular with the center at the origin.
+      So, along any radial line segment, the line integral should be zero, since the field is perpendicular to the line segment. Along any arc centered at the origin, the field strength should be constant along the arc. And we see that on \(l_1\)
+      the line integral is \(-b\theta\), whose magnitude is equal to the field strength \(\frac{b}{R_1}\) (shown in Part 3) times the arc length
+      \(R_1\theta\). The opposite sign comes from the clockwise orientation. On \(l_2\) the line integral is \(b\theta \),
+      which equals the field strength \(\frac{b}{R_2}\) (shown in Part 3) times the arc length \(R_2\theta\). So, overall, the circulation should
+      be zero.
+      \\
+      \\
+      \textbf{Case 3}: \(R_1\le r_0 <R_2\). \\
+      \\
+      In such case all the points on \(l_1\) satisfy \(\sqrt{x^2+y^2}\le r_0\). So, the line integral along \(l_1\)
+      will be identical to that of case 1:
+      \begin{equation}
+        \int_{l_1} \mathbf{u}\cdot \dd\mathbf{x} = -\Omega R_1^2\theta
+      \end{equation}
+      All the points on \(l_3\) satisfy \(\sqrt{x^2+y^2} > r_0\). So, the line integral along \(l_3\) will be identical to that of
+      case 2:
+      \begin{equation}
+        \int_{l_3} \mathbf{u}\cdot \dd\mathbf{x} = b\theta
+      \end{equation}
+      \(l_2\) and \(l_4\) intersect both regions. However, as we can see in case 1 and case 2,
+      \(\mathbf{u}(\mathbf{g}(t))\cdot \mathbf{g}'(t)\) is always equal to zero on \(l_2\) and \(l_4\),
+      no matter \(\sqrt{x^2+y^2}\le r_0\) or \(\sqrt{x^2+y^2} > r_0\). This implies:
+      \begin{equation}
+        \int_{l_2} \mathbf{u}\cdot \dd\mathbf{x} = \int_{R_1}^{R_2} \mathbf{u}(\mathbf{g}_2(t))\cdot \mathbf{g}_2'(t) \dd t =0
+      \end{equation}
+      and
+      \begin{equation}
+        \int_{l_4} \mathbf{u}\cdot \dd\mathbf{x}= \int_{R_1}^{R_2} \mathbf{u}(\mathbf{g}_4(t))\cdot \mathbf{g}_4'(t) \dd t = 0
+      \end{equation}
+      So, overall, the circulation is:
+      \begin{align*}
+        \int_{C_2} \mathbf{u}\cdot \dd\mathbf{x}
+        &= \int_{l_1} \mathbf{u}\cdot \dd\mathbf{x} +\int_{l_2} \mathbf{u}\cdot \dd\mathbf{x} +\int_{l_3} \mathbf{u}\cdot \dd\mathbf{x}
+        \int_{l_4} \mathbf{u}\cdot \dd\mathbf{x}\\
+        &= -\Omega R_1^2\theta + 0 + b \theta + 0 \\
+        &= \theta (b - \Omega R_1^2)
+      \end{align*}
+      \textbf{Evaluation}. This result is as expected. In both regions \(\sqrt{x^2+y^2}\le r_0\) and \(\sqrt{x^2+y^2}> r_0\),
+      the field is circular with the center at the origin.
+      So, along any radial line segment, the line integral should be zero, since the field is perpendicular to the line segment. Along any arc centered at the origin, the field strength should be constant along the arc. And we see that on \(l_1\)
+      the line integral is \(-\Omega R_1^2\theta\), whose magnitude is equal to the field strength \(\Omega R_1\) (shown in Part 3) times the arc length
+      \(R_1\theta\). The opposite sign comes from the clockwise orientation. On \(l_2\) the line integral is \(b\theta \),
+      which equals the field strength \(\frac{b}{R_2}\) (shown in Part 3) times the arc length \(R_2\theta\).\\
+      \\
+      \textbf{Overall Evaluation}: Notice that in case 1, if we let \(R_2=r_0\), we would have:
+      \begin{equation}
+        \int_{C_2} \mathbf{u}\cdot \dd \mathbf{x}= \Omega \theta (r_0^2 - R_1^2) = \theta (b - \Omega R_1^2)
+      \end{equation}
+      (using equation (6))
+      This is the same result as case 3. So, when the radius \(R_2\) is greater than \(r_0\), the circulation will remain the same as
+      that of \(r_0\). 
+\end{enumerate}\text{ }\\
+\pagebreak \\ \\
+
+\item \textbf{Part 5}\\
+We calculate the integrand \(\frac{\partial u_2}{\partial x} - \frac{\partial u_1}{\partial y}\) for both A (flow into a drain) and B
+(vortex) before evaluating the integrals. \\
+\\
+For the velocity field of the A (flow into a drain), we have:
+\begin{align}
+  \frac{\partial u_2}{\partial x}
+  = \frac{\partial}{\partial x}\left(-\frac{ay}{x^2+y^2}\right)
+  = -\frac{ - ay(2x)}{(x^2+y^2)^2} = \frac{2axy}{(x^2+y^2)^2 }
+\end{align}
+\begin{align}
+  \frac{\partial u_1}{\partial y} = \frac{\partial}{\partial y}\left(-\frac{ax}{x^2+y^2}\right) = -\frac{- ax(2y)}{(x^2+y^2)^2} =\frac{2axy}{(x^2+y^2)^2}
+\end{align}
+Therefore:
+\begin{equation}
+  \frac{\partial u_2}{\partial x} - \frac{\partial u_1}{\partial y} = \frac{2axy}{(x^2+y^2)^2 } - \frac{2axy}{(x^2+y^2)^2 } = 0
+\end{equation}
+Note that \(\frac{\partial u_2}{\partial x} =\frac{\partial u_1}{\partial y}= \frac{2axy}{(x^2+y^2)^2 }\) is not defined at \((0,0)\).
+So, strictly speaking, \(\frac{\partial u_2}{\partial x} - \frac{\partial u_1}{\partial y}\) is undefined at \((0,0)\).
+However, in order to evaluate the desired integral, we need consider the point \((0,0)\).
+I will take the limit of \(\frac{\partial u_2}{\partial x} - \frac{\partial u_1}{\partial y}\) as \((x,y)\to (0,0)\),
+which is \(0\), as the value of \(\frac{\partial u_2}{\partial x} - \frac{\partial u_1}{\partial y}\) at \((0,0)\). \\
+\\
+For the velocity field of B (vortex), since \(\mathbf{u}(x,y)\) is defined piecewisely, we need to consider the following two cases:\\
+\\
+\textbf{Case 1}: \(\sqrt{x^2+y^2}\le r_0\). In such case, we have:
+\begin{equation}
+  \frac{\partial u_2}{\partial x} = \frac{\partial}{\partial x} (\Omega x) =\Omega
+\end{equation}
+\begin{equation}
+  \frac{\partial u_1}{\partial y} = \frac{\partial}{\partial y}(-\Omega y ) = -\Omega
+\end{equation}
+Therefore:
+\begin{equation}
+  \frac{\partial u_2}{\partial x} - \frac{\partial u_1}{\partial y} = \Omega-(-\Omega) = 2\Omega
+\end{equation}
+\textbf{Case 2}: \(\sqrt{x^2+y^2}> r_0\). In such case, we have:
+\begin{equation}
+  \frac{\partial u_2}{\partial x} = \frac{\partial }{\partial x}\left(\frac{bx}{x^2+y^2}\right) = \frac{b(x^2+y^2)-bx(2x)}{(x^2+y^2)^2} = \frac{by^2 - bx^2}{ (x^2+y^2)^2}
+\end{equation}
+\begin{equation*}
+  \frac{\partial u_1}{\partial y} = \frac{\partial}{\partial y}\left(-\frac{by}{x^2+y^2}\right) = -\frac{b(x^2+y^2)-by(2y)}{(x^2+y^2)^2} = \frac{by^2 - bx^2}{ (x^2+y^2)^2}
+\end{equation*}
+Therefore:
+\begin{equation}
+    \frac{\partial u_2}{\partial x} - \frac{\partial u_1}{\partial y} = \frac{by^2 - bx^2}{ (x^2+y^2)^2}-\frac{by^2 - bx^2}{ (x^2+y^2)^2}=0
+\end{equation}
+Now, we proceed to evaluate the desired integrals.
+\begin{enumerate}
+  \item \(C_1\): a circle of radius \(R\). We use the usual parametrization for the circle.
+  \begin{enumerate}
+    \item \textbf{A. flow into a drain}\\
+    Since \(\frac{\partial u_2}{\partial x} - \frac{\partial u_1}{\partial y}=0\), we simply have:
+    \begin{equation}
+      \iint_D \left(\frac{\partial u_2}{\partial x} - \frac{\partial u_1}{\partial y}\right) \dd x\dd y =0
+    \end{equation}
+    We have already seen in Part 4 that:
+    \begin{equation}
+      \int_{C_1} \mathbf{u}\cdot \dd \mathbf{x} = 0
+    \end{equation}
+    for this case. So, the given equality holds for this case.\\
+    \\
+    \textbf{Evaluation}: In fact, the above evaluation of \(\iint_D \left(\frac{\partial u_2}{\partial x} - \frac{\partial u_1}{\partial y}\right) \dd x\dd y\) is not well-defined, as \(\frac{\partial u_2}{\partial x} - \frac{\partial u_1}{\partial y}\)
+    is not well-defined at \((0,0)\). The given vector field \(\mathbf{u}(x,y)\) is not \(C^1\) in the region \(D\), so the condition of Green's Theorem is not satisfied. In the lecture notes, we have seen an example of non-\(C^1\) vector field causes
+    Green's Theorem to not hold. But surprisingly this does not happen to this case. I think this is because the vector field is
+    \(\mathbf{u}(x,y)\) is radial, so the circulation around a circle centered at the origin is always zero. This is equal to the
+    double integral we have evaluated if we extend \(\frac{\partial u_2}{\partial x} - \frac{\partial u_1}{\partial y}\) to the origin by taking the limit. \\
+    \\
+    \item \textbf{B. vortex}\\
+    \textbf{Case 1}: \(R\le r_0\). In such case, we have \(\sqrt{x^2+y^2}\le r_0\) for all \((x,y)\in D\), so \(\frac{\partial u_2}{\partial x} - \frac{\partial u_1}{\partial y}=2\Omega\) for all \((x,y)\in D\). So, the integral on the right hand side is:
+    \begin{equation}
+      \iint_D \left(\frac{\partial u_2}{\partial x} - \frac{\partial u_1}{\partial y}\right) \dd x\dd y = 2\Omega\iint_D \dd x\dd y
+    \end{equation}
+    \(\iint_D \dd x\dd y\) is just the area of the region for integation. In this case, this is a disk of radius \(R\), which has an
+    area of \(\pi R^2\). Therefore:
+    \begin{equation}
+      \iint_D \left(\frac{\partial u_2}{\partial x} - \frac{\partial u_1}{\partial y}\right) \dd x\dd y = 2\Omega \cdot \pi R^2 = 2\pi \Omega R^2
+    \end{equation}
+    In Part 4, we have derived that
+    \begin{equation*}
+      \int_{C_1} \mathbf{u}\cdot \dd \mathbf{x} = 2\pi \Omega R^2
+    \end{equation*}
+    for this case. So, the given equality holds for this case.\\
+    \\
+    \textbf{Case 2}: \(R>r_0\). In such case, only the points within the disk of radius \(r_0\) centered at the origin have non zero value of
+    \(\frac{\partial u_2}{\partial x} - \frac{\partial u_1}{\partial y}\) (which equals \(2\Omega\)). Otherwise, the
+    value of \(\frac{\partial u_2}{\partial x} - \frac{\partial u_1}{\partial y}\) equals zero. So, the integral
+    \begin{equation}
+      \iint_D \left(\frac{\partial u_2}{\partial x} - \frac{\partial u_1}{\partial y}\right) \dd x\dd y = 2\Omega\iint_{D_0} \dd x\dd y
+    \end{equation}
+    where \(D_0\) is the disk of radius \(r_0\) centered at the origin. \(\iint_{D_0} \dd x\dd y\) is just the area of this disk, which is \(\pi r_0^2\). Therefore:
+    \begin{equation*}
+      \iint_D \left(\frac{\partial u_2}{\partial x} - \frac{\partial u_1}{\partial y}\right) \dd x\dd y = 2 \pi \Omega r_0^2
+    \end{equation*}
+    we have derived in Part 4 that:
+    \begin{equation*}
+        \int_{C_1} \mathbf{u}\cdot \dd \mathbf{x} = 2\pi b
+    \end{equation*}
+    But recall in Part 1 we have derived that (equation (6)):
+    \begin{equation}
+      \Omega = \frac{b}{r_0^2}
+    \end{equation}
+    So, the given equality does hold for this case. \\
+    \end{enumerate}\text{ }\\
+    \\
+  \pagebreak \\ \\
+  \item \(C_2\): an annular wedge with inner and outer radii \(R_1\) and \(R_2>R_1\) spanning angle \(\theta\).
+  \begin{enumerate}
+    \item \textbf{A. flow into a drain}\\
+    Again, since \(\frac{\partial u_2}{\partial x} - \frac{\partial u_1}{\partial y}=0\), we simply have:
+    \begin{equation}
+      \iint_D \left(\frac{\partial u_2}{\partial x} - \frac{\partial u_1}{\partial y}\right) \dd x\dd y =0
+    \end{equation}
+    We have already seen in Part 4 that:
+    \begin{equation}
+      \int_{C_2} \mathbf{u}\cdot \dd \mathbf{x} = 0
+    \end{equation}
+    for this case. So, the given equality holds for this case.\\
+    \\
+    We remark that for this case, the integral \(  \iint_D \left(\frac{\partial u_2}{\partial x} - \frac{\partial u_1}{\partial y}\right) \dd x\dd y\) is well-defined, since the region of integation does not contain the origin. \\
+    \item \textbf{B. vortex}\\
+    \textbf{Case 1}: \(R_1 <R_2 \le r_0\).
+     In such case, all points in \(D\) will satisfy \(\sqrt{x^2+y^2}\le r_0\).
+    Therefore, \(\frac{\partial u_2}{\partial x} - \frac{\partial u_1}{\partial y} = 2\Omega\) for all
+    \((x,y)\in D\). This means:
+    \begin{equation}
+      \iint_D \left(\frac{\partial u_2}{\partial x} - \frac{\partial u_1}{\partial y}\right) \dd x\dd y = 2\Omega\iint_D \dd x\dd y
+    \end{equation}
+    \(\iint_D \dd x\dd y\) is just the area of the region for integation. In this case, as we can see in figure 3,
+    this area equals the area of the sector with radius \(R_2\) and angle \(\theta\) minus the area of the sector with radius \(R_1\) and
+    angle \(\theta\). This is:
+    \begin{equation}
+      \iint_D \dd x\dd y = \frac{1}{2}R_2^2\theta - \frac{1}{2}R_1^2\theta = \frac{1}{2}\theta (R_2^2-R_1^2)
+    \end{equation}
+    So, we have:
+    \begin{equation}
+      \iint_D \left(\frac{\partial u_2}{\partial x} - \frac{\partial u_1}{\partial y}\right) \dd x\dd y = 2\Omega \cdot \frac{1}{2}\theta (R_2^2-R_1^2) = \Omega\theta(R_2^2 - R_1^2)
+    \end{equation}
+    We have derived in Part 4 that:
+    \begin{equation}
+      \int_{C_2} \mathbf{u}\cdot \dd \mathbf{x}= \Omega \theta (R_2^2 - R_1^2)
+    \end{equation}
+    for this case. As we can see, the given equality holds. \\
+    \\
+    \textbf{Case 2}:
+    \(r_0 <R_1<R_2\). In such case, all points in \(D\) will satisfy \(\sqrt{x^2+y^2} > r_0\).
+    So, \(\frac{\partial u_2}{\partial x} - \frac{\partial u_1}{\partial y} = 0\) for all
+    \((x,y)\in D\). This means:
+    \begin{equation}
+      \iint_D \left(\frac{\partial u_2}{\partial x} - \frac{\partial u_1}{\partial y}\right) \dd x\dd y = 0
+    \end{equation}
+    We have derived in Part 4 that:
+    \begin{equation}
+      \int_{C_2} \mathbf{u}\cdot \dd \mathbf{x}= 0
+    \end{equation}
+    for this case. Again, the given equality holds.\\
+    \\
+    \textbf{Case 3}: \(R_1\le r_0 <R_2\). In this case, only the points in the annular wedge with inner and outer radii
+    \(R_1\) and \(r_0\) satisfy \(\sqrt{x^2+y^2} \le r_0\), \(\frac{\partial u_2}{\partial x} - \frac{\partial u_1}{\partial y} = 2\Omega\). Otherwise, \(\frac{\partial u_2}{\partial x} - \frac{\partial u_1}{\partial y} = 0\).
+    Therefore:
+    \begin{equation}
+      \iint_D \left(\frac{\partial u_2}{\partial x} - \frac{\partial u_1}{\partial y}\right) \dd x\dd y = 2\Omega\iint_{D_0} \dd x \dd y
+    \end{equation}
+    where \(D_0\) is the annular wedge with inner and outer radii \(R_1\) and \(r_0\). The integral \(\iint_{D_0} \dd x \dd y\)
+    is the area of this region. This area equals the area of the sector with radius \(r_0\) and angle \(\theta\) minus the area of the sector with radius \(R_1\) and angle \(\theta\). This is:
+    \begin{equation}
+      \iint_{D_0} \dd x \dd y = \frac{1}{2}r_0^2 \theta - \frac{1}{2}R_1^2\theta = \frac{1}{2}\theta(r_0^2 -R_1^2)
+    \end{equation}
+    Therefore:
+    \begin{equation}
+      \iint_D \left(\frac{\partial u_2}{\partial x} - \frac{\partial u_1}{\partial y}\right) \dd x\dd y = 2\Omega \cdot
+      \frac{1}{2}\theta(r_0^2 -R_1^2) = \Omega\theta (r_0^2-R_1^2)
+    \end{equation}
+    In Part 4, we have derived that:
+    \begin{equation}
+        \int_{C_2} \mathbf{u}\cdot \dd \mathbf{x} = \theta(b - \Omega R_1^2) = \Omega \theta \left(\frac{b}{\Omega} - R_1^2\right)
+    \end{equation}
+    Also, recall in Part 1 we have derived that (equation (6)):
+    \begin{equation}
+      \Omega = \frac{b}{r_0^2}
+    \end{equation}
+    So, the given equality does hold for this case. \\
+    \\
+  \end{enumerate}
+\end{enumerate}
+\end{enumerate}
+
+
+\end{document}
