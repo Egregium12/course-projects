@@ -1,0 +1,570 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{physics}
+\usepackage[left=2.5cm,right=2.5cm,top=1.6cm,bottom=1.6cm]{geometry}
+\usepackage{cancel}
+\usepackage{mathtools}
+\usepackage{ulem}
+\usepackage{polynom}
+\usepackage{comment}
+\usepackage{caption}
+\def\ZZ{{\mathbb Z}}
+\def\RR{{\mathbb R}}
+\def\CC{{\mathbb C}}
+\def\QQ{{\mathbb Q}}
+\def\EE{{\mathbb E}}
+\def\NN{{\mathbb N}}
+\def\FF{{\mathbb F}}
+\def\AA{{\mathcal A}}
+\def\SS{{\mathbb S}}
+\def\PP{{\mathbb P}}
+\def\HH{{\mathbb H}}
+\def\sp{{\operatorname{span}}}
+\def\nul{{\operatorname{nullity}}}
+\def\nu{{\operator{Null}}}
+\def\ran{{\operatorname{ran}}}
+\def\Int{{\operatorname{Int}}}
+\def\momt{{-i\hbar \frac{d}{dx}}}
+\def\hamt{{-\frac{\hbar^2}{2m} \frac{d^2}{dx^2}+V(x)}}
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\begin{document}
+\begin{titlepage}
+    \centering
+    \vspace*{\fill}
+
+    \vspace*{0.5cm}
+
+    \huge\bfseries
+    AMATH 251 Project 1: Numerical methods for solving ODEs
+
+    \vspace*{0.5cm}
+
+    \large Yu Li \& Lev Raizman \\
+    October 2021
+
+    \vspace*{\fill}
+
+\end{titlepage}
+\section{Quadratic Approximation}
+The quadratic approximation method is given by
+\begin{equation}
+    y_{j+1} =  y(x_j) +y'(x_j)h + y''(x_j) \frac{h^2}{2}
+\end{equation}
+To determine the order of this method,
+we assume the solution \(y\) to the differential equation is at least \(C^3\). Then, by the Taylor’s Approximation Theorem,
+we know that \(y(x_{j+1})\) can be written as the following form:
+\begin{equation}
+  y(x_{j+1}) = y(x_j +h) = y(x_j) +y'(x_j)h + y''(x_j) \frac{h^2}{2} + O(h^3)
+\end{equation}
+when \(h\to 0\).
+Then, we can see the truncation error \(E\) for each step of the quadratic approximation satisfies:
+\begin{equation}
+  \lim_{h\to 0}\frac{E}{h^3} =\lim_{h\to 0} \frac{y(x_{j+1}) - y_{j+1}}{h^3} = \lim_{h\to 0}\frac{  y(x_{j+1}) - ( y(x_j) +y'(x_j)h + y''(x_j) \frac{h^2}{2})}{h^3} = \lim_{h\to 0} \frac{O(h^3)}{h^3} = \text{const}
+\end{equation}
+where in general \(\text{const}\) is non-zero. This shows the truncation error for each step of the quadratic approximation
+is \(O(h^3)\). When using the step size \(h \propto \frac{1}{N}\), where \(N\) is the number of steps, we have \(N \propto \frac{1}{h}\). Hence, the global error is:
+\begin{equation}
+  E_{global} = N E  = \frac{1}{h} O(h^3) = O(h^2)
+\end{equation}
+This shows the quadratic approximation is a second-order method. \\
+\\
+I have used Maple to write a program that approximates the solutions of first-order DEs by using the quadratic approximation.
+See part 1 of the appendix for the code and commands. Note that in the appendix, the IVP \(y' = xy\) with \(y(0)=1\) is used
+to demonstrate the functionality of the code. The step size \(h\) is chosen to be \(0.00025\).
+So, the number of steps is \(N = \frac{1-0}{0.00025} = 4000\). The numerical method yields the following result:
+\begin{equation}
+  y(1) = 1.648721184
+\end{equation}
+We can quickly verify that the actual analytical solution to this IVP is
+\begin{equation}
+  y = e^{x^2/2}
+\end{equation}
+by substituting this solution into the IVP. So, we know that
+\begin{equation}
+  y(1) = e^{1/2} \approx 1.648721271
+\end{equation}
+As we can see, the result of the numerical method is pretty close to the actual value. \\
+\\
+We remark that users can modify the corresponding sections in the code to use the program for solving an arbitrary first-order DE.\\
+\\
+To compare different numerical methods (Euler, RK2 and quadratic) for solving first-order DEs, we use the same IVP,
+\(y' = xy\) with \(y(0)=1\), as above. The number of steps are chosen to be \(1,2,4\) and \(8\). Since
+\(h   = \frac{x_{\max} - x_0}{N} = \frac{1-0}{N} = \frac{1}{N}\) (\(N\) is the number of steps),
+we know that the step sizes \(h\) are \(1, 0.5, 0.25\) and \(0.125\) respectively.
+We enter these step sizes into Maple to produce the approximate values of \(y(1)\) by using these three methods.
+See the part 1 of the appendix for the code. The results are presented in the following table:
+\begin{center}
+\begin{tabular}{||c |c| c| c||}
+ \hline
+  Number of steps \(N\) & \(y(1)\) (Euler's Method) & \(y(1)\) (RK2) & \(y(1)\) (Quadratic Approximation) \\ [0.5ex]
+ \hline\hline
+ 1 & 1 & 1.5 & 1.5 \\
+ \hline
+ 2 & 1.25 & 1.599609375 & 1.582031250 \\
+ \hline
+ 4 & 1.419433594 & 1.634217274 & 1.626173613 \\
+ \hline
+ 8 & 1.524005973 & 1.644771474 & 1.642191679\\
+ \hline
+\end{tabular}
+\captionof{table}{The approximate values of \(y(1)\) to the IVP \(y' = xy\) with \(y(0)=1\) by using different numerical methods and
+different numbers of steps.}
+\end{center}
+Compared to the actual value \(y(1) = e^{1/2} \approx 1.648721271\), we see that the RK2 and the quadratic approximation
+produce much less error than the Euler's method. And it is noticeable that the errors of the RK2 and the quadratic approximation
+are approximately the same. As we will see in the next section, both the RK2 and the quadratic approximation have the same global
+error of \(O(h^2)\).
+\section{The Second-order Runga-Kutta Method (RK2)}
+The second-order Runga-Kutta method (RK2) is given by the following:
+\begin{equation}
+  k_1 = hf(x_n, y_n)
+\end{equation}
+\begin{equation}
+  k_2 = hf( x_n+ \frac{1}{2}h, y_n + \frac{1}{2}k_1)
+\end{equation}
+\begin{equation}
+  y_{n+1} = y_n +k_2
+\end{equation}
+We show that the RK2 also gives an error of \(O(h^3)\) at each step. To show this, we assume the solution \(y\) to the differential
+equation is at least \(C^3\) and \(f(x,y)\) is at least \(C^2\). By the Taylor's Approximation Theorem for multivariable
+functions, we know that:
+\begin{align}
+  &f( x_n+ \frac{1}{2}h, y_n + \frac{1}{2}k_1) = f(x_n, y_n) + \frac{h}{2}\frac{\partial f}{\partial x}(x_n, y_n) +
+  \frac{k_1}{2} \frac{\partial f}{\partial y}(x_n, y_n) + O(h^2)\\
+  &=  f(x_n, y_n) + \frac{h}{2}\frac{\partial f}{\partial x}(x_n, y_n) +
+  \frac{h}{2} f(x_n, y_n)\frac{\partial f}{\partial y}(x_n, y_n) + O(h^2)
+\end{align}
+as \(h\to 0\).
+Here we have substituted the expression of \(k_1\) given by equation (8).
+From the differential equation \(y' = f(x,y)\), we have \(y'(x_n) = f(x_n, y_n)\). Substitute this into the above
+equation, we have:
+\begin{equation}
+  f( x_n+ \frac{1}{2}h, y_n + \frac{1}{2}k_1) = y'(x_n) + \frac{h}{2} \left(\frac{\partial f}{\partial x}(x_n, y_n) +
+  y'(x_n)\frac{\partial f}{\partial y}(x_n, y_n) \right) +O(h^2)
+\end{equation}
+By the multivariable chain rule, we know that
+\begin{equation}
+  \frac{\dd f}{\dd x} (x_n, y_n) = \frac{\partial f}{\partial x}(x_n, y_n) + y'(x_n)\frac{\partial f}{\partial y}(x_n, y_n)
+\end{equation}
+Differentiate both sides of \(y'(x_n) = f(x_n, y_n)\) with respect to \(x\), we have \(y''(x_n) = \frac{\dd f}{\dd x}(x_n, y_n)\).
+Therefore:
+\begin{equation}
+  y''(x_n) = \frac{\partial f}{\partial x}(x_n, y_n) + y'(x_n)\frac{\partial f}{\partial y}(x_n, y_n)
+\end{equation}
+Substitute this into equation (13), we get:
+\begin{equation}
+  f( x_n+ \frac{1}{2}h, y_n + \frac{1}{2}k_1)  = y'(x_n) + \frac{h}{2} y''(x_n)  +O(h^2)
+\end{equation}
+So:
+\begin{equation}
+  k_2 = h f( x_n+ \frac{1}{2}h, y_n + \frac{1}{2}k_1)  = y'(x_n)h + \frac{1}{2} y''(x_n) h^2 + O(h^3)
+\end{equation}
+\begin{equation}
+  y_{n+1} = y_n +k_2 = y(x_n) +  y'(x_n)h + \frac{1}{2} y''(x_n) h^2 + O(h^3)
+\end{equation}
+Compared to equation (2) (identifying the index \(j\) in equation (2) as \(n\) here), we see that
+the truncation error \(E\) for each step of the RK2 methods satisfies:
+\begin{align}
+    \lim_{h\to 0} \frac{E}{h^3}
+    & = \lim_{h\to 0} \frac{y(x_{n+1}) - y_{n+1}}{h^3}\\
+    & = \lim_{h\to 0} \frac{y(x_n) +  y'(x_n)h + \frac{1}{2} y''(x_n) h^2 + O(h^3) - (y(x_n) +  y'(x_n)h + \frac{1}{2} y''(x_n) h^2 + O(h^3))}{h^3}\\
+    &= \lim_{h\to 0} \frac{O(h^3)}{h^3} = \text{const}
+\end{align}
+where in general \(\text{const}\) is non-zero. This shows the truncation error for each step of the RK2 method
+is \(O(h^3)\). When using the step size \(h \propto \frac{1}{N}\), where \(N\) is the number of steps, we have \(N \propto \frac{1}{h}\). Hence, the global error is:
+\begin{equation}
+  E_{global} = N E  = \frac{1}{h} O(h^3) = O(h^2)
+\end{equation}
+This shows the RK2 method is also a second-order method.\\ \\  \\  \\ \\ \\
+\\
+\section{Two Exampler Initial Value Problems}
+\subsection{Problem 1}
+\begin{eqnarray}
+  y'= x^{3/2} y & \text{with} & y(0)=1
+\end{eqnarray}
+For comparison, we find the analytical solution first. Clearly, this differential equation is separable:
+\begin{equation}
+  \int \frac{\dd y}{y} = \int x^{3/2} \dd x
+\end{equation}
+\begin{equation}
+  \ln|y| = \frac{2}{5}x^{5/2} + C
+\end{equation}
+\begin{equation}
+   y = \pm \exp(\frac{2}{5}x^{5/2} + C) = \pm e^C \exp(\frac{2}{5}x^{5/2}) = A \exp(\frac{2}{5}x^{5/2})
+\end{equation}
+where \(A = \pm e^C\) is an arbitrary non-zero constant. From the initial condition \(y(0)=1\), we have:
+\begin{equation}
+  1 = A \exp(\frac{2}{5}\cdot 0^{5/2}) = A
+\end{equation}
+Therefore, the analytical solution to this IVP is:
+\begin{equation}
+   y = \exp(\frac{2}{5}x^{5/2})
+\end{equation}
+The value of \(y\) at \(x= 1\) is:
+\begin{equation}
+  y = e^{2/5} \approx 1.49182469764
+\end{equation}
+\\
+I have used Maple to approximate the value of \(y(1)\) by using Euler's method, the quadratic approximation method and the
+RK2 method. The step sizes are chosen to be \(2^n\) where \(n = 0,1,2,\ldots, 10\). The results are presented in the
+following table:
+\begin{center}
+\begin{tabular}{||c |c| c| c||}
+ \hline
+  Number of steps \(N\) & \(y(2)\) (Euler's Method) & \(y(2)\) (RK2) & \(y(2)\) (Quadratic Approximation) \\ [0.5ex]
+ \hline\hline
+ \(2^0\)  & 1. & 1.353553391 & 1. \\
+ \hline
+ \(2^1\)  & 1.176776695 & 1.438056014 & 1.324984216 \\
+ \hline
+ \(2^2\)  & 1.304655609 & 1.475269449 & 1.444233307 \\
+ \hline
+ \(2^3\)  & 1.388135354 & 1.487255639 & 1.479275953 \\
+ \hline
+ \(2^4\)  & 1.436972160 & 1.490625573 & 1.488634055 \\
+ \hline
+ \(2^5\)  & 1.463571977 & 1.491517358 & 1.491025904 \\
+ \hline
+ \(2^6\)  & 1.477481149 & 1.491746838 & 1.491625855 \\
+ \hline
+ \(2^7\)  & 1.484597190 & 1.491805082 & 1.491775268 \\
+ \hline
+ \(2^8\)  & 1.488196810 & 1.491819775 & 1.491812404 \\
+ \hline
+ \(2^9\)  & 1.490007202 & 1.491823478 & 1.491821633 \\
+ \hline
+ \(2^{10}\) & 1.490915038 & 1.491824383 & 1.491823934 \\
+ \hline
+\end{tabular}
+\captionof{table}{The approximate values of \(y(1)\) to the IVP \(y' = x^{3/2}y\) with \(y(0)=1\) by using different numerical methods and different numbers of steps.}
+\end{center}
+By using Maple, I have calculated the error \(E\) of the approximate values of \(y(1)\) compared to the actual value. If the error \(E\propto h^{\alpha}\), then \(\log_b|E| =C + \alpha \log_b h\) for some constants \(C\) and \(\alpha\).
+So, in order to verify that the Euler's method is first-order and the RK2 and the quadratic approximation are second-order, we can
+plot the error versus \(h\) plot on a log-log plot and show that the slope of the curves are approximately 1 and 2 for small enough \(h\) (when \(h\) is large, the error will not be exactly proportional to \(h^\alpha\)).
+The plot has been generated by using Maple. See the Appendix for the data and the code.
+\pagebreak \\ \\
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.5]{q3a.PNG}
+    \caption{The Error versus \(h\) plot on a log-log plot. The base is chosen to be \(e\). Several reference curves are also given. }
+    \label{fig:label1}
+\end{figure}\text{ }\\
+Several reference curves of slope 1 and 2 are also included in the plot. As we can see on the plot, when \(h\) is small, the
+slope of the error versus \(h\) plot of the Euler's method is pretty close to the reference curve with slope 1;
+the slopes of the error versus \(h\) plots of the RK2 method and quadratic approximation are pretty close to the reference curves
+with slope 2. By the above argument, this verifies the Euler's method is first-order and the RK2 and the quadratic approximation are second-order.
+\pagebreak \\ \\
+\subsection{Problem 2}
+\begin{eqnarray}
+  y' = 2y - 2e^{-x/2} +\cos(2x) -2\sin(8x) & \text{with} & y(0)=1
+\end{eqnarray}
+For comparison, we find the analytical solution first. This is a first-order linear DE. The corresponding homogeneous solution is:
+\begin{equation}
+  y' -2y = 0
+\end{equation}
+Therefore:
+\begin{equation}
+  \int \frac{\dd y}{y} = 2\int\dd x
+\end{equation}
+\begin{equation}
+  \ln |y| = 2x +C
+\end{equation}
+\begin{equation}
+  y = \pm e^C e^{2x} = A e^{2x}
+\end{equation}
+where \(A\) is an arbitrary non-zero constant. Since any anti-derivative works, we can take
+\begin{equation}
+  y_h = e^{2x}
+\end{equation}
+as a homogeneous solution. \\
+\\
+Let \(y_1 = v_1 y_h\) be a particular solution to \(y'-2y = -2e^{-x/2}\). Therefore, we have:
+\begin{equation}
+  (v_1y_h)' -2(v_1 y_h) = v_1'y_h + v_1y_h' -2v_1y_h = v_1'y_h - v_1(y_h' - 2y_h) = v_1'y_h = -2e^{-x/2}
+\end{equation}
+\begin{equation}
+  v_1' = -2e^{-x/2}/ y_h= -2e^{-x/2}/ e^{2x} = -2e^{-5x/2}
+\end{equation}
+\begin{equation}
+  v_1 = -2\int e^{-5x/2} \dd x = \frac{4}{5} e^{-5x/2} + C
+\end{equation}
+Since any anti-derivative works, we can take:
+\begin{equation}
+  v_1 = \frac{4}{5} e^{-5x/2}
+\end{equation}
+So:
+\begin{equation}
+  y_1 = y_h v_1 = \frac{4}{5} e^{-x/2}
+\end{equation}
+Let \(y_2 = v_2y_h\) be a particular solution to \(y'-2y = \cos(2x)\). Therefore:
+\begin{equation}
+  (v_2y_h)' -2(v_2 y_h) = v_2'y_h + v_2y_h' -2v_2y_h = v_2'y_h - v_2(y_h' - 2y_h) = v_2'y_h = \cos(2x)
+\end{equation}
+\begin{equation}
+  v_2' = \cos(2x) / y_h = e^{-2x}\cos(2x)
+\end{equation}
+Using the integration identity \(\int e^{ax}\cos(bx) \dd x = \frac{1}{a^2+b^2}e^{ax} (a\cos bx + b\sin bx)+C\) from MATH 148, we have:
+\begin{equation}
+  v_2 = \int e^{-2x}\cos(2x) \dd x = \frac{1}{8}e^{-2x}(-2 \cos(2x) + 2\sin(2x)) +C = \frac{1}{4}e^{-2x}(\sin(2x)-\cos(2x)) +C
+\end{equation}
+Since any anti-derivative works, we take:
+\begin{equation}
+  v_2 = \frac{1}{4}e^{-2x}(\sin(2x)-\cos(2x))
+\end{equation}
+\begin{equation}
+  y_2 =y_h v_2 = \frac{1}{4}(\sin(2x)-\cos(2x))
+\end{equation}
+Let \(y_3 = v_3 y_h\) be a particular solution to \(y' -2y = -2\sin(8x)\). Therefore:
+\begin{equation}
+  (v_3y_h)' -2(v_3 y_h) = v_3'y_h + v_3y_h' -2v_3y_h = v_3'y_h - v_3(y_h' - 2y_h) = v_3'y_h = -2\sin(8x)
+\end{equation}
+\begin{equation}
+  v_3' = -2\sin(8x)/ y_h = -2 e^{-2x} \sin(8x)
+\end{equation}
+Using the integration identity \(\int e^{ax}\sin(bx) \dd x = \frac{1}{a^2+b^2}e^{ax} (a\sin bx - b\cos bx)+C\) from MATH 148, we have:
+\begin{equation}
+  v_3 = -2 \int e^{-2x} \sin(8x) \dd x = -2\left(\frac{1}{68}e^{-2x}(-2\sin(8x) - 8\cos(8x))\right) + C=
+  \frac{1}{17}e^{-2x}(\sin(8x) + 4\cos(8x)) +C
+\end{equation}
+Since any anti-derivative works, we choose
+\begin{equation}
+  v_3 = \frac{1}{17}e^{-2x}(\sin(8x) + 4\cos(8x))
+\end{equation}
+\begin{equation}
+  y_3 = y_h v_3 = \frac{1}{17}(\sin(8x) + 4\cos(8x))
+\end{equation}
+Therefore, by the linearity of the given differential equation, we know that the general solution is:
+\begin{equation}
+  y = Cy_h + y_1 + y_2 +y_3 = Ce^{2x} +  \frac{4}{5} e^{-x/2} + \frac{1}{4}(\sin(2x)-\cos(2x)) + \frac{1}{17}(\sin(8x) + 4\cos(8x))
+\end{equation}
+where \(C\) is an arbitrary constant. From the initial condition \(y(0)=1\), we have:
+\begin{equation}
+  1 = C + \frac{4}{5} - \frac{1}{4} + \frac{4}{17}
+\end{equation}
+\begin{equation}
+  C = \frac{73}{340}
+\end{equation}
+So, the analytical solution to the given IVP is:
+\begin{equation}
+  y = \frac{73}{340}e^{2x} +  \frac{4}{5} e^{-x/2} + \frac{1}{4}(\sin(2x)-\cos(2x)) + \frac{1}{17}(\sin(8x) + 4\cos(8x))
+\end{equation}
+The value of \(y(2)\) is
+\begin{equation}
+  y(2) = \frac{73}{340}e^{4} + \frac{4}{5} e^{-1} + \frac{1}{4}(\sin(4)-\cos(4)) + \frac{1}{17}(\sin(16) + 4\cos(16))
+  \approx 11.74879068
+\end{equation}
+\\
+I have used Maple to approximate the value of \(y(2)\) by using Euler's method, the quadratic approximation method and the
+RK2 method. The step sizes are chosen to be \(2^n\) where \(n = 0,1,2,\ldots, 10\). The results are presented in the
+following table:
+\begin{center}
+\begin{tabular}{||c |c| c| c||}
+ \hline
+  Number of steps \(N\) & \(y(2)\) (Euler's Method) & \(y(2)\) (RK2) & \(y(2)\) (Quadratic Approximation) \\ [0.5ex]
+ \hline\hline
+ \(2^0\) & 3.0 & 1.784150702 & -23.0000 \\
+ \hline
+ \(2^1\) & 2.392075351 & 18.01202423 & -29.15788113 \\
+ \hline
+ \(2^2\) & 8.953896933 & 7.137321825 & -0.8887624689 \\
+ \hline
+ \(2^3\) & 8.905032042 & 10.04907103 & 6.746093247\\
+ \hline
+ \(2^4\) & 9.749530982 & 11.19097463 & 10.04027214 \\
+ \hline
+ \(2^5\) & 10.53169214 & 11.58658252 & 11.25346002 \\
+ \hline
+ \(2^6\) & 11.06961427 & 11.70496697 & 11.61605933 \\
+ \hline
+ \(2^7\) & 11.38872156 & 11.73739905 & 11.71448939 \\
+ \hline
+ \(2^8\) & 11.56321419 & 11.74588680 & 11.74007606 \\
+ \hline
+ \(2^9\) & 11.65455896 & 11.74805765 & 11.74659453 \\
+ \hline
+ \(2^{10}\) & 11.70130654 & 11.74860654 & 11.74823937 \\
+ \hline
+\end{tabular}
+\captionof{table}{The approximate values of \(y(2)\) to the IVP \(y' = 2y - 2e^{-x/2} +\cos(2x) -2\sin(8x)\) with \(y(0)=1\) by using different numerical methods and different numbers of steps.}
+\end{center}
+By using Maple, I have calculated the error \(E\) of the approximate values of \(y(2)\) compared to the actual value. If the error \(E\propto h^{\alpha}\), then \(\log_b|E| =C + \alpha \log_b h\) for some constants \(C\) and \(\alpha\).
+So, in order to verify that the Euler's method is first-order and the RK2 and the quadratic approximation are second-order, we can
+plot the error versus \(h\) plot on a log-log plot and show that the slope of the curves are approximately 1 and 2 for small enough \(h\) (when \(h\) is large, the error will not be exactly proportional to \(h^\alpha\)).
+The plot has been generated by using Maple. See the Appendix for the data and the code.
+\pagebreak \\ \\
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.5]{q3b.PNG}
+    \caption{The Error versus \(h\) plot on a log-log plot. The base is chosen to be \(e\). Several reference curves are also given. }
+    \label{fig:label2}
+\end{figure}\text{ }\\
+Several reference curves of slope 1 and 2 are also included in the plot. As we can see on the plot, when \(h\) is small, the
+slope of the error versus \(h\) plot of the Euler's method is pretty close to the reference curve with slope 1;
+the slopes of the error versus \(h\) plots of the RK2 method and quadratic approximation are pretty close to the reference curves
+with slope 2. By the above argument, this verifies the Euler's method is first-order and the RK2 and the quadratic approximation are second-order.
+\pagebreak
+\section{The Cost of the Improved Methods}
+To evaluate the additional cost of the improved the methods, we count the number of function evaluations, additions/subtractions and multiplications/divisions to complete one step in each method.
+For convenience, we present the procedures of each method here: \\
+\\
+Euler's method:
+\begin{equation}
+  y_j = y_{j-1} + f(x_{j-1}, y_{j-1})h
+\end{equation}
+The second-order Runga-Kutta method (RK2):
+\begin{equation}
+  k_1 = hf(x_n,y_n)
+\end{equation}
+\begin{equation}
+  k_2 = h f(x_n + \frac{1}{2}h, y_n +\frac{1}{2}k_1)
+\end{equation}
+\begin{equation}
+  y_{n+1} = y_n +k_2
+\end{equation}
+The quadratic approximation method:
+\begin{equation}
+  y_{j+1} = y_j + f(x_j, y_j)h +  \frac{\dd f}{\dd x}(x_j, y_j) \frac{h^2}{2}
+\end{equation}
+For the Euler's method, there is 1 addition, 1 multiplication and 1 function evaluation in each step; for the RK2 method, there
+are 2 function evaluations, 3 additions and 4 multiplications in each step (we assume \(\frac{1}{2}\) is a known value, instead of 1 divided by 2); for the quadratic approximation method, there are 2 function evaluations (in the programming we usually precalculate \( \frac{\dd f}{\dd x}\) as a known function of \(x,y\)), 2 additions and 4 multiplications.
+This information is summarized in the following table:
+\begin{center}
+\begin{tabular}{||c |c| c| c||}
+ \hline
+ & Euler's Method & RK2 & Quadratic Approximation \\ [0.5ex]
+ \hline\hline
+ the number of function evaluations,&&& \\
+ additions/subtractions &&&\\
+ and multiplications/divisions & 3& 9 & 8\\
+  in each step  &  &  &  \\
+ \hline
+\end{tabular}
+\captionof{table}{The number of function evaluations, additions/subtractions and multiplications/divisions to complete one step in each numerical method.}
+\end{center}
+Now, to a crude approximation, we assume each type of the operations counted here uses the same amount of time \(k\).
+So, each step of Euler's method takes \(3k\), each step of the RK2 takes \(9k\) and each step of the quadratic approximation
+takes \(8k\). Assume for a particular choice of \(N\), each method gives the same error \(E\). We wish to reduce the
+error by a factor of \(2^{2n}\). For the Euler's method, we know it is first-order, which means
+the error is proportional to the step size \(h\). If we reduce the error by a factor of \(2^{2n}\),
+we need to reduce the step size \(h\) by a factor of \(2^{2n}\) as well. Since \(N \propto \frac{1}{h}\),
+the number of steps \(N\) need to be increased by a factor of \(2^{2n}\), becoming \(2^{2n}N\).
+For the RK2 and the quadratic approximation, since they are second order, the error is proportional to \(h^2\).
+So, to reduce the error by a factor of \(2^{2n}\), we only need to reduce the step size \(h\) by a factor of \(2^n\).
+Again, since  \(N \propto \frac{1}{h}\), the number of steps \(N\) need to be increased by a factor of \(2^{n}\), becoming \(2^{n}N\).
+Now, the running time for each method is:
+\begin{equation}
+  t_{euler} = 3k 2^{2n}N
+\end{equation}
+\begin{equation}
+  t_{rk2} = 9k 2^{n}N
+\end{equation}
+\begin{equation}
+  t_{quad} = 8k 2^{n}N
+\end{equation}
+If \(n\) is large, \(t_{euler}\) would be much greater than \(t_{rk2}\) and \(t_{quad}\) (as \(3k\cdot 2^{n}\) would be much greater than \(9k\) and \(8k\)), even though
+Euler's method takes less time in each step. So, the extra effort of the second-order methods definitely worth it!
+\pagebreak
+\section{Convergence and Stability}
+The given differential equation is:
+\begin{equation}
+  y' + \alpha y =0
+\end{equation}
+where \(\alpha>0\) is a constant.
+This is a separable differential equation. When \(y\ne 0\), we have:
+\begin{equation}
+   \int \frac{\dd y}{y} = -\alpha \int \dd x
+\end{equation}
+\begin{equation}
+  \ln|y| = -\alpha x +C
+\end{equation}
+\begin{equation}
+  y = \pm e^C e^{-\alpha x} = A e^{-\alpha x}
+\end{equation}
+where \(A\) is an arbitrary non-zero constant. We should also remark that \(y=0\) is a solution, as \((0)'+\alpha \cdot 0 =0\).
+Including the zero solution, \(A\) can be any real number. So, the general solution is
+\begin{equation}
+   y = A e^{-\alpha x}
+\end{equation}
+We see that for any \(A\in \RR\),
+\begin{equation}
+  \lim_{x\to \infty} y = \lim_{x\to \infty} A e^{-\alpha x} = 0
+\end{equation}
+since \(\alpha >0\). This verifies all solutions of the given differential equation go to zero as \(x\to \infty\).
+Now, suppose \(y_0, y_1, y_2, \ldots, y_N\) are approximate numerical solutions as \(x_0, x_1, \ldots,x_N=z\).
+It is desirable that the numerical solutions have the same property as the analytical soltions \(y(x_n)\),
+which go to zero as \(x_n \to \infty\). In the following section we will determine under what conditions
+the Euler's method and the RK2 method have this property. \\
+\subsection{Euler's Method}
+For the Euler's method, we claim that
+\begin{equation}
+  y_n = (1-\alpha h)^n y_0
+\end{equation}
+for all \(n\in \NN\). We show this is true by induction.
+\begin{proof}\text{ }\\
+  When \(n = 0\), we have
+  \begin{equation}
+    y_0 = (1- \alpha h)^0 y_0
+  \end{equation}
+  This shows the above claim is true for \(n=0\). Now, assume it is true for \(n=k\), which means:
+  \begin{equation}
+    y_k = (1-\alpha h)^k  y_0
+  \end{equation}
+  We consider the case when \(n=k+1\). By the procedures of the Euler's method, we know that
+  \begin{equation}
+    y_{k+1} = y_k + f(x_k, y_k)h = y_k - \alpha h y_k  = y_k (1-\alpha h)
+  \end{equation}
+  Substitute the expression of \(y_k\) (the inductive hypothesis) into the above equation, we have:
+  \begin{equation}
+    y_{k+1} = (1-\alpha h) (1-\alpha h)^k  y_0 = (1-\alpha h)^{k+1}  y_0
+  \end{equation}
+  This shows the claim is true for \(n=k+1\). Now, we have shown that it is true for \(n=0\) and \(n=k+1\) assuming it is true
+  for \(n=k\). By the principle of mathematical induction, we know that \(y_n = (1-\alpha h)^n y_0\) for all \(n\in \NN\).
+\end{proof}\text{ }\\
+The above result shows that \(y_n \to 0\) if and only if \(|1-\alpha h|<1\), \(0<\alpha h <2\).
+Note that \(1/\alpha\) is the decay scale of the analytical solution. The result says that the step size must be
+less than twice the decay scale for the solution to decay to zero at infinity.
+\pagebreak
+\subsection{The Second-order Runga-Kutta Method (RK2)}
+For the RK2 method, we claim that:
+\begin{equation}
+  y_n = (1-\alpha h + \frac{(\alpha h)^2}{2})^n y_0
+\end{equation}
+for all \(n\in \NN\). We show this is true by induction.
+\begin{proof}\text{ }\\
+  When \(n=0\), we have:
+  \begin{equation}
+    y_0 = (1-\alpha h + \frac{(\alpha h)^2}{2})^0 y_0
+  \end{equation}
+  This shows the above claim is true for \(n=0\). Now, assume it is true for \(n=k\), which means:
+  \begin{equation}
+    y_k = (1-\alpha h + \frac{(\alpha h)^2}{2})^k y_0
+  \end{equation}
+  Consider the case when \(n = k+1\). By the procedures of the RK2 method, we have:
+  \begin{equation}
+    k_1 = f(x_k, y_k)h = -\alpha y_k h
+  \end{equation}
+  \begin{equation}
+    k_2 = h f(x_k +\frac{1}{2}h, y_k + \frac{1}{2}k_1) = -h\alpha(y_k  - \frac{1}{2} \alpha y_k h) =y_k(-h\alpha +\frac{(\alpha h)^2}{2})
+  \end{equation}
+  \begin{equation}
+    y_{k+1} = y_k + k_2 = y_k(1-h\alpha +\frac{(\alpha h)^2}{2})
+  \end{equation}
+  Substitute the expression of \(y_k\) (the inductive hypothesis) into the above equation, we have:
+  \begin{equation}
+    y_{k+1} = (1-h\alpha +\frac{(\alpha h)^2}{2}) (1-\alpha h + \frac{(\alpha h)^2}{2})^k y_0 = (1-\alpha h + \frac{(\alpha h)^2}{2})^{k+1} y_0
+  \end{equation}
+  This shows the claim is true for \(n=k+1\). Now, we have shown that the claim is true for \(n=0\) and \(n=k+1\)
+  assuming it is true for \(n=k\). By the principle of mathematical induction, we know that
+  \(  y_n = (1-\alpha h + \frac{(\alpha h)^2}{2})^n y_0\) for all \(n\in \NN\).
+\end{proof}\text{ }\\
+The above result shows that \(y_n\to 0\) if and only if \(|1-\alpha h + \frac{(\alpha h)^2}{2}|< 1\).
+That is when \(-1<1-\alpha h + \frac{(\alpha h)^2}{2}<1\), \(\alpha h(\alpha h -2) < 0\), which is \(0<\alpha h <2\).
+Again, the result says that the step size must be
+less than twice the decay scale for the solution to decay to zero at infinity.
+\end{document}
